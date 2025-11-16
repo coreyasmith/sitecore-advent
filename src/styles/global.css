@@ -1,0 +1,20 @@
+html,
+body {
+	cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMicgaGVpZ2h0PSczMicgc3R5bGU9J2ZvbnQtc2l6ZToyNHB4Jz48dGV4dCB5PScyNCc+4puEPC90ZXh0Pjwvc3ZnPg==") 16 16, pointer;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	background: linear-gradient(to bottom, #83b2ff);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.logo {
+	width: 300px;
+	height: 300px;
+}

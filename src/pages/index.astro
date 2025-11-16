@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import SnowFall from '../components/SnowFall.astro';
+import logo from '../assets/logo.svg';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<head>
+  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+</head>
+<body>
+  <SnowFall />
+  <Image src={logo} alt="Sitecore Community Advent Calendar Logo" class="logo" />
+</body>
+</html>
