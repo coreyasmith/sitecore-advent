@@ -1,20 +1,23 @@
-html,
-body {
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.js";
+
+html, body {
 	cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMicgaGVpZ2h0PSczMicgc3R5bGU9J2ZvbnQtc2l6ZToyNHB4Jz48dGV4dCB5PScyNCc+4puEPC90ZXh0Pjwvc3ZnPg==") 16 16, pointer;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	min-height: 100vh;
-	background: linear-gradient(to bottom, #83b2ff);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: hidden;
+a:hover, button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+	cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMicgaGVpZ2h0PSczMicgc3R5bGU9J2ZvbnQtc2l6ZToyNHB4Jz48dGV4dCB5PScyNCc+8J+mjDwvdGV4dD48L3N2Zz4=") 16 16, pointer;
 }
 
-.logo {
-	width: 300px;
-	height: 300px;
+.card-text-shadow {
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.about-the-author {
+	@apply mt-8 p-4 bg-white/5 border-l-4 border-green-400 rounded-md ;
+}
+
+.about-the-author a {
+	@apply underline hover:opacity-80;
 }

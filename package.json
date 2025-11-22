@@ -9,12 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.12",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
+    "@tailwindcss/vite": "^4.1.17",
     "@zachleat/snow-fall": "^1.0.3",
     "astro": "^5.16.0",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19"
   },
   "optionalDependencies": {
     "@img/sharp-linux-x64": "^0.34.5",
-    "@rollup/rollup-linux-x64-gnu": "^4.53.3"
+    "@rollup/rollup-linux-x64-gnu": "^4.53.3",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.1.17",
+    "lightningcss-linux-x64-gnu": "^1.30.2"
   }
 }

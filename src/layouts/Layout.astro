@@ -1,0 +1,25 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import background from '../assets/background.png';
+import SnowFall from "../components/SnowFall.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const { title, description, image, enableSnowfall = true } = Astro.props;
+---
+
+<html lang="en">
+<head>
+  <BaseHead title={title} description={description} image={image} />
+</head>
+<body class="text-white min-h-screen flex flex-col" style={`background-image: url(${background.src}); background-size: 100px 100px; background-repeat: repeat;`}>
+  {enableSnowfall && <SnowFall />}
+  <Header />
+
+  <main class="grow p-6 max-w-6xl mx-auto w-full">
+    <slot />
+  </main>
+
+  <Footer />
+</body>
+</html>

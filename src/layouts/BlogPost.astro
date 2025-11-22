@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'advent2025'>['data'];
+
+const { title, author, pubDate, description, authorImage, authorUrl, socialImage } = Astro.props;
+---
+
+<Layout title={title} description={description} image={socialImage} enableSnowfall={false}>
+  <article class="bg-green-950/90 rounded-2xl p-8 shadow-lg">
+    <h1 class="text-3xl font-bold mb-4">{title}</h1>
+
+    <div class="flex items-center space-x-4 mb-6 pb-6 border-b border-gray-400 border-opacity-30">
+      {authorImage && (
+        <a href={authorUrl} target="_blank" class="hover:shadow-2xl hover:scale-105 transition">
+          <Image src={authorImage} alt={author} width={128} height={128} class="w-16 h-16 rounded-full object-cover border-2 border-white border-opacity-50" />
+        </a>
+      )}
+      <div>
+        <a href={authorUrl} target="_blank" class="text-lg font-semibold hover:opacity-80 transition">{author}</a>
+        <p class="text-sm text-gray-300"><FormattedDate date={pubDate}></p>
+      </div>
+    </div>
+
+    <div class="prose prose-invert max-w-none">
+      <slot />
+    </div>
+  </article>
+</Layout>

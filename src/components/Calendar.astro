@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  posts: any[];
+  year: number;
+}
+
+const { posts, year } = Astro.props;
+
+const totalDays = 25;
+const numPosts = posts.length;
+const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
+---
+
+<div class="mb-12">
+  <h3 class="text-xl font-bold mb-4">{year} Advent Calendar</h3>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+    {
+      posts.map((post: any, index: number) => {
+        const colors = [
+          'from-rose-500 to-rose-700',
+          'from-green-500 to-green-700',
+          'from-blue-500 to-blue-700',
+          'from-fuchsia-500 to-fuchsia-700',
+          'from-yellow-500 to-yellow-700'
+        ];
+        // Generate color ensuring no consecutive repeats
+        let colorIndex;
+        const seed = index + 1;
+        const pseudo = Math.sin(seed * 12.9898 + seed * 78.233) * 43758.5453;
+        colorIndex = Math.floor((pseudo - Math.floor(pseudo)) * colors.length);
+
+        // If same as previous, shift to next color
+        if (index > 0) {
+          const prevSeed = index;
+          const prevPseudo = Math.sin(prevSeed * 12.9898 + prevSeed * 78.233) * 43758.5453;
+          const prevColorIndex = Math.floor((prevPseudo - Math.floor(prevPseudo)) * colors.length);
+          if (colorIndex === prevColorIndex) {
+            colorIndex = (colorIndex + 1) % colors.length;
+          }
+        }
+
+        const colorClass = colors[colorIndex];
+        return (
+        <a href={`/2025/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:scale-105 transition transform duration-300 block`}>
+            <div class="flex items-center mb-2">
+            <Image src={post.data.authorImage} alt={post.data.author} width={80} height={80} class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
+            <div>
+                <h2 class="text-lg font-semibold leading-tight text-white card-text-shadow">Day {index+1}</h2>
+                <p class="text-xs text-white/90 card-text-shadow">{post.data.author}</p>
+            </div>
+            </div>
+            <p class="text-sm text-white card-text-shadow">{post.data.title}</p>
+        </a>
+        );
+      })
+    }
+    {
+      Array.from({ length: numLockedBlocks }).map((_, index) => (
+        <div class="bg-gray-400/20 rounded-2xl p-4 shadow-lg opacity-70 flex flex-col items-center justify-center min-h-32">
+        <span class="text-3xl mb-2">🔒</span>
+        <h2 class="text-lg font-semibold">Day {numPosts + index + 1}</h2>
+        </div>
+      ))
+    }
+  </div>
+</div>
