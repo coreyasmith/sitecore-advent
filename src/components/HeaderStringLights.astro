@@ -1,4 +1,11 @@
 ---
+interface Props {
+  glow?: boolean;
+}
+
+// Enabled only for home page
+const glow = Astro.url.pathname === '/' ? Astro.props.glow ?? false: false;
+
 const colors = [
   { hex: '#ff3b30', rgb: '255,59,48' },
   { hex: '#ff9500', rgb: '255,149,0' },
@@ -17,12 +24,12 @@ const colors = [
 const lights = [...colors, ...colors];
 ---
 
-<div class="string-lights" aria-hidden="true">
+<div class={`string-lights ${glow ? 'glow-enabled' : ''}`} aria-hidden="true">
   <ul class="lights">
     {
       lights.map((color, i) => (
         <li
-          style={`--c:${color.hex}; --rgb:${color.rgb}; --i:${(i % colors.length) * 0.15}`}
+          style={`--c:${color.hex}; --rgb:${color.rgb}; --i:${(i % colors.length) * 0.15};`}
         />
       ))
     }
@@ -70,6 +77,13 @@ const lights = [...colors, ...colors];
       0 0 10px rgba(var(--rgb), 0.35),
       0 0 28px rgba(var(--rgb), 0.12);
     border: 1px solid rgba(0, 0, 0, 0.12);
+    animation-duration: calc((rem(calc(var(--i)/0.15 + 6), 12)) * 0.1s + 1.2s);
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-delay: calc(var(--i) * 0.1s);
+  }
+  .glow-enabled .lights li:after {
+    animation-name: glow;
   }
   .lights li:nth-child(odd) {
     animation-duration: 4s;
@@ -77,15 +91,27 @@ const lights = [...colors, ...colors];
   .lights li:nth-child(even) {
     animation-duration: 3.2s;
   }
-  @keyframes sway {
-    0% {
-      transform: translateY(0) rotate(-2deg);
+
+  @keyframes glow {
+    0%, 100% {
+      background: color-mix(in srgb, var(--c) 50%, black 50%);
+      box-shadow:
+        0 0 10px rgba(var(--rgb), 0),
+        0 0 28px rgba(var(--rgb), 0);
     }
     50% {
-      transform: translateY(2px) rotate(2deg);
+      background: var(--c);
+      box-shadow:
+        0 0 10px rgba(var(--rgb), 0.35),
+        0 0 28px rgba(var(--rgb), 1);
     }
-    100% {
-      transform: translateY(0) rotate(-2deg);
+  }
+  @keyframes sway {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(2px);
     }
   }
   @media (max-width: 768px) {
