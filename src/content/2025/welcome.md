@@ -15,7 +15,7 @@ This project is inspired by [sysadvent](https://sysadvent.blogspot.com/), a blog
 
 Whether you celebrate Christmas, Kwanzaa, Hanukkah, Yule, or nothing at all in December, I hope that the Sitecore Community Advent Calendar brings you lots of joy and cheer! Merry Christmas, Happy Hannukah, Happy Kwanzaa, and Happy Yule to you and yours this holiday season! 🎅🎄
 
-If you are interested in participating in the 2026 Sitecore Community Advent Calendar or want to share your thoughts about this project, please [drop me a line on LinkedIn](https://www.linkedin.com/in/smithdev/). I would love to hear from you!
+If you are interested in participating in the 2026 Sitecore Community Advent Calendar or want to share your thoughts about this project, please drop me a line on the [Sitecore Slack at @sitecorey](https://www.sitecore.chat) or [LinkedIn](https://www.linkedin.com/in/smithdev/). I would love to hear from you!
 
 ![Mail Frog](../../assets/2025/welcome/mail-frog.gif)
 
