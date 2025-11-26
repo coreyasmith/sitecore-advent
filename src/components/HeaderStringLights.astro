@@ -4,7 +4,7 @@ interface Props {
 }
 
 // Enabled only for home page
-const glow = Astro.url.pathname === '/' ? Astro.props.glow ?? false: false;
+const glow = Astro.props.glow ?? false;
 
 const colors = [
   { hex: '#ff3b30', rgb: '255,59,48' },
@@ -77,10 +77,10 @@ const lights = [...colors, ...colors];
       0 0 10px rgba(var(--rgb), 0.35),
       0 0 28px rgba(var(--rgb), 0.12);
     border: 1px solid rgba(0, 0, 0, 0.12);
-    animation-duration: calc((rem(calc(var(--i)/0.15 + 6), 12)) * 0.2s + 2.4s);
+    animation-duration: calc((rem(calc(var(--i)/0.15 + 6), 12)) * 0.4s + 3.0s);
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
-    animation-delay: calc(var(--i) * 0.1s);
+    animation-delay: calc(var(--i) * 0.2s);
   }
   .glow-enabled .lights li:after {
     animation-name: glow;
