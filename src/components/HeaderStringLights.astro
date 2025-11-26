@@ -1,4 +1,11 @@
 ---
+interface Props {
+  glow?: boolean;
+}
+
+// Enabled only for home page
+const glow = Astro.props.glow ?? false;
+
 const colors = [
   { hex: '#ff3b30', rgb: '255,59,48' },
   { hex: '#ff9500', rgb: '255,149,0' },
@@ -15,14 +22,23 @@ const colors = [
 ];
 
 const lights = [...colors, ...colors];
+
+// Seeded random number generator
+// We want to light same color lights at the same time
+function createSeededRandom(seed: number) {
+    // A simple LCG-like formula
+    let state = seed;
+    state = (state * 9301 + 49297) % 233280;
+    return state / 233280; // Normalize to a value between 0 and 1
+}
 ---
 
-<div class="string-lights" aria-hidden="true">
+<div class={`string-lights ${glow ? 'glow-enabled' : ''}`} aria-hidden="true">
   <ul class="lights">
     {
       lights.map((color, i) => (
         <li
-          style={`--c:${color.hex}; --rgb:${color.rgb}; --i:${(i % colors.length) * 0.15}`}
+          style={`--c:${color.hex}; --rgb:${color.rgb}; --i:${(i % colors.length) * 0.15}; --delay:${createSeededRandom(i)};`}
         />
       ))
     }
@@ -70,6 +86,17 @@ const lights = [...colors, ...colors];
       0 0 10px rgba(var(--rgb), 0.35),
       0 0 28px rgba(var(--rgb), 0.12);
     border: 1px solid rgba(0, 0, 0, 0.12);
+    animation-duration: calc((rem(calc(var(--i)/0.15 + 6), 12)) * 0.4s + 3.6s);
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-delay: calc(var(--delay) * 1s);
+  }
+  .glow-enabled .lights li:after {
+    background: color-mix(in srgb, var(--c) 50%, black 50%);
+    box-shadow:
+        0 0 10px rgba(var(--rgb), 0),
+        0 0 28px rgba(var(--rgb), 0);
+    animation-name: glow;
   }
   .lights li:nth-child(odd) {
     animation-duration: 4s;
@@ -77,15 +104,27 @@ const lights = [...colors, ...colors];
   .lights li:nth-child(even) {
     animation-duration: 3.2s;
   }
-  @keyframes sway {
-    0% {
-      transform: translateY(0) rotate(-2deg);
+
+  @keyframes glow {
+    0%, 100% {
+      background: color-mix(in srgb, var(--c) 50%, black 50%);
+      box-shadow:
+        0 0 10px rgba(var(--rgb), 0),
+        0 0 28px rgba(var(--rgb), 0);
     }
     50% {
-      transform: translateY(2px) rotate(2deg);
+      background: var(--c);
+      box-shadow:
+        0 0 10px rgba(var(--rgb), 0.35),
+        0 0 28px rgba(var(--rgb), 1);
     }
-    100% {
-      transform: translateY(0) rotate(-2deg);
+  }
+  @keyframes sway {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(2px);
     }
   }
   @media (max-width: 768px) {
