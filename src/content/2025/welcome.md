@@ -1,10 +1,10 @@
 ---
-title: 'Welcome to the 2025 Sitecore Community Advent Calendar!'
-author: 'Corey Smith'
+title: "Welcome to the 2025 Sitecore Community Advent Calendar!"
+author: "Corey Smith"
 pubDate: 2025-11-25
-description: 'May each Sitecore Community post from December 1 through December 25 bring you warmth and holiday cheer!'
-authorImage: '../../assets/authors/corey-smith.jpg'
-authorUrl: 'https://www.linkedin.com/in/smithdev/'
+description: "May each Sitecore Community post from December 1 through December 25 bring you warmth and holiday cheer!"
+authorImage: "../../assets/authors/corey-smith.jpg"
+authorUrl: "https://www.linkedin.com/in/smithdev/"
 ---
 
 Welcome to the first Sitecore Community Advent Calendar!
