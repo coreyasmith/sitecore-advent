@@ -17,7 +17,7 @@ module.exports = {
             // Make table borders appropriate for dark mode
             '--tw-prose-invert-th-borders': 'rgba(255, 255, 255, 0.5)',
             '--tw-prose-invert-td-borders': 'rgba(255, 255, 255, 0.4)',
-            
+
             // Reduce spacing between elements
             'p': {
               marginTop: '0.75em',
@@ -104,6 +104,11 @@ module.exports = {
               display: 'block',
               marginLeft: 'auto',
               marginRight: 'auto',
+            },
+            // Make tables scrollable like code blocks
+            'table': {
+              display: 'block',
+              overflowX: 'auto',
             },
           },
         },
