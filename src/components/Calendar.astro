@@ -11,6 +11,24 @@ const { posts, year } = Astro.props;
 const totalDays = 25;
 const numPosts = posts.length;
 const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
+
+const colors = [
+  'from-fuchsia-500 to-fuchsia-700',
+  'from-rose-500 to-rose-700',
+  'from-green-500 to-green-700',
+  'from-blue-500 to-blue-700',
+  'from-yellow-500 to-yellow-700',
+  'from-purple-500 to-purple-700',
+  'from-teal-500 to-teal-700',
+  'from-orange-500 to-orange-700'
+];
+
+// Deterministic color grid: offset each row by 2 to avoid horizontal and vertical conflicts
+const getColor = (index: number) => {
+  const row = Math.floor(index / 5);
+  const col = index % 5;
+  return colors[(col + row * 2) % colors.length];
+};
 ---
 
 <div class="mb-12">
@@ -18,30 +36,7 @@ const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
   <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
     {
       posts.map((post: any, index: number) => {
-        const colors = [
-          'from-rose-500 to-rose-700',
-          'from-green-500 to-green-700',
-          'from-blue-500 to-blue-700',
-          'from-fuchsia-500 to-fuchsia-700',
-          'from-yellow-500 to-yellow-700'
-        ];
-        // Generate color ensuring no consecutive repeats
-        let colorIndex;
-        const seed = index + 1;
-        const pseudo = Math.sin(seed * 12.9898 + seed * 78.233) * 43758.5453;
-        colorIndex = Math.floor((pseudo - Math.floor(pseudo)) * colors.length);
-
-        // If same as previous, shift to next color
-        if (index > 0) {
-          const prevSeed = index;
-          const prevPseudo = Math.sin(prevSeed * 12.9898 + prevSeed * 78.233) * 43758.5453;
-          const prevColorIndex = Math.floor((prevPseudo - Math.floor(prevPseudo)) * colors.length);
-          if (colorIndex === prevColorIndex) {
-            colorIndex = (colorIndex + 1) % colors.length;
-          }
-        }
-
-        const colorClass = colors[colorIndex];
+        const colorClass = getColor(index);
         return (
         <a href={`/2025/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:scale-105 transition transform duration-300 block`}>
             <div class="flex items-center mb-2">
