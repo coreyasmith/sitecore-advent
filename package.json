@@ -14,8 +14,8 @@
     "@astrojs/sitemap": "^3.6.0",
     "@tailwindcss/vite": "^4.1.17",
     "@zachleat/snow-fall": "^1.0.3",
-    "astro": "^5.16.0",
-    "sharp": "^0.34.3",
+    "astro": "^5.16.4",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
