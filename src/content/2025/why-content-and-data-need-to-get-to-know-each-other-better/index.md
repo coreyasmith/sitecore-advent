@@ -3,7 +3,7 @@ title: "Why Content and Data Need to Get to Know Each Other Better"
 description: "Integrate CMS with behavioral data to unlock contextual, composable analytics insights."
 author: "Christopher Nash"
 pubDate: 2025-12-03
-authorImage: "../../../assets/authors/christopher-nash.jpg"
+authorImage: "@/assets/authors/christopher-nash.jpg"
 authorUrl: "https://www.linkedin.com/in/chris-nash-dx/"
 socialImage: "./social.png"
 ---

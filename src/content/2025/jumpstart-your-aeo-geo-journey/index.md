@@ -3,7 +3,7 @@ title: "Jumpstart Your AEO/GEO Journey"
 author: "Deepthi Katta"
 pubDate: 2025-12-09
 description: "Five practical steps to optimize your Sitecore site for AI-driven discovery with AEO and GEO."
-authorImage: "../../../assets/authors/deepthi-katta.jpg"
+authorImage: "@/assets/authors/deepthi-katta.jpg"
 authorUrl: "https://www.linkedin.com/in/deepthikatta"
 socialImage: "./social.png"
 ---

@@ -3,7 +3,7 @@ title: "When Sitecore Fields Just Aren't Enough"
 author: "Nona Dzhurkova"
 pubDate: 2025-12-21
 description: "Simplify Sitecore templates with a hybrid data architecture for dynamic product comparisons."
-authorImage: "../../../assets/authors/nona-dzhurkova.jpg"
+authorImage: "@/assets/authors/nona-dzhurkova.jpg"
 authorUrl: "https://www.linkedin.com/in/nona-dzhurkova-3221b812/"
 socialImage: "./social.png"
 ---

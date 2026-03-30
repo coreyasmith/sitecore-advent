@@ -3,7 +3,7 @@ title: "Launch Faster: 5 Simple Conditions for Sitecore Personalize with Sitecor
 author: "Dylan Young"
 pubDate: 2025-12-10
 description: "Copy-paste custom conditions for Sitecore Personalize to supercharge SitecoreAI personalization."
-authorImage: "../../../assets/authors/dylan-young.jpg"
+authorImage: "@/assets/authors/dylan-young.jpg"
 authorUrl: "https://www.linkedin.com/in/dylanyoung/"
 socialImage: "./social.png"
 ---

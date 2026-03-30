@@ -3,7 +3,7 @@ title: "Marketplace App Content Tokens"
 author: "Anna Bründel"
 pubDate: 2025-12-06
 description: "Build a Marketplace app to display Content Tokens in SitecoreAI Page Builder for editors."
-authorImage: "../../../assets/authors/anna-brundel.jpg"
+authorImage: "@/assets/authors/anna-brundel.jpg"
 authorUrl: "https://www.linkedin.com/in/anbrue/"
 socialImage: "./social.png"
 ---

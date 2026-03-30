@@ -3,7 +3,7 @@ title: "SitecoreAI Has Arrived: A New Chapter after Stream"
 author: "Cade Whitbourn"
 pubDate: 2025-12-13
 description: "Stream ends, SitecoreAI begins. A fundamental shift to AI-native across the platform."
-authorImage: "../../../assets/authors/cade-whitbourn.jpg"
+authorImage: "@/assets/authors/cade-whitbourn.jpg"
 authorUrl: "https://www.linkedin.com/in/cadewhitbourn/"
 socialImage: "./social.png"
 ---

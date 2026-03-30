@@ -3,7 +3,7 @@ title: "From Idea to Marketplace: Designing a Presets Module for SitecoreAI"
 author: "David San Filippo"
 pubDate: 2025-12-25
 description: "Designing a rendering parameter preset module for SitecoreAI with the Marketplace SDK."
-authorImage: "../../../assets/authors/david-san-filippo.jpg"
+authorImage: "@/assets/authors/david-san-filippo.jpg"
 authorUrl: "https://www.linkedin.com/in/david-san-filippo/"
 socialImage: "./social.png"
 ---

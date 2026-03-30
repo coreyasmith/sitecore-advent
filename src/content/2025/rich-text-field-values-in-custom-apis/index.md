@@ -3,7 +3,7 @@ title: "How to Expose Sitecore Rich Text Field Values Properly in Your Custom AP
 author: "Peter Prochazka"
 pubDate: 2025-12-16
 description: "Fix broken Rich Text links in custom Sitecore APIs with the renderField pipeline solution."
-authorImage: "../../../assets/authors/peter-prochazka.jpg"
+authorImage: "@/assets/authors/peter-prochazka.jpg"
 authorUrl: "https://www.linkedin.com/in/chorpo"
 socialImage: "./social.png"
 ---

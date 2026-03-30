@@ -3,7 +3,7 @@ title: "Deck the Data Halls: Building a Sitecore CDP Model That Delivers All Yea
 author: "Tiffany Laster"
 pubDate: 2025-12-01
 description: "Unwrap the gift of personalization with a Sitecore CDP strategy that shines beyond the holidays."
-authorImage: "../../../assets/authors/tiffany-laster.jpg"
+authorImage: "@/assets/authors/tiffany-laster.jpg"
 authorUrl: "https://www.linkedin.com/in/tiffanylaster115/"
 socialImage: "./social.png"
 ---

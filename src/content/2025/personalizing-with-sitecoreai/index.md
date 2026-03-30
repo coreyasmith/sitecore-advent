@@ -3,7 +3,7 @@ title: "Personalizing with SitecoreAI"
 author: "Jaina Baumgartner"
 pubDate: 2025-12-07
 description: "Learn SitecoreAI personalization from basic rules to AI-powered experiences with Personalize."
-authorImage: "../../../assets/authors/jaina-baumgartner.jpg"
+authorImage: "@/assets/authors/jaina-baumgartner.jpg"
 authorUrl: "https://www.linkedin.com/in/jainasangtani/"
 socialImage: "./social.png"
 ---

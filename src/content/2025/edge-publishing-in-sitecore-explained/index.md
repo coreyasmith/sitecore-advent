@@ -3,7 +3,7 @@ title: "Edge Publishing in Sitecore Explained: What, How, and Why"
 author: "Khushboo Sorthiya"
 pubDate: 2025-12-14
 description: "How Edge Publishing works in SitecoreAI: architecture, V1 vs V2, and optimization."
-authorImage: "../../../assets/authors/khushboo-sorthiya.jpg"
+authorImage: "@/assets/authors/khushboo-sorthiya.jpg"
 authorUrl: "https://www.linkedin.com/in/khushboo-sorthiya/"
 socialImage: "./social.png"
 ---

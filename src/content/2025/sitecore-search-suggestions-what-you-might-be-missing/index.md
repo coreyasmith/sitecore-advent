@@ -3,7 +3,7 @@ title: "Sitecore Search Suggestions: What You Might Be Missing"
 author: "Tobias Studer"
 pubDate: 2025-12-18
 description: "Learn to configure autocomplete and exact-match suggestions in Sitecore Search the right way."
-authorImage: "../../../assets/authors/tobias-studer.jpg"
+authorImage: "@/assets/authors/tobias-studer.jpg"
 authorUrl: "https://www.linkedin.com/in/tobiasstuder"
 socialImage: "./social.png"
 ---

@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
-import Layout from '../../layouts/Layout.astro'
-import Calendar from '../../components/Calendar.astro';
-import welcomeAuthor from '../../assets/authors/corey-smith.jpg';
-import "../../styles/global.css";
+import Layout from '@/layouts/Layout.astro'
+import Calendar from '@/components/Calendar.astro';
+import welcomeAuthor from '@/assets/authors/corey-smith.jpg';
+import "@/styles/global.css";
 
 const { title = "2025", description = "The 2025 Sitecore Community Advent Calendar." } = Astro.props;
 

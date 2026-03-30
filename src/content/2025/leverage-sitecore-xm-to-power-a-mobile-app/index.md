@@ -3,7 +3,7 @@ title: "How I Managed to Leverage Sitecore XM to Power a Mobile App Back End Sys
 author: "Vincent Lui"
 pubDate: 2025-12-20
 description: "Learn how to build a mobile app back end powered by Sitecore XM using webhooks and GraphQL APIs."
-authorImage: "../../../assets/authors/vincent-lui.jpg"
+authorImage: "@/assets/authors/vincent-lui.jpg"
 authorUrl: "https://www.linkedin.com/in/vincent-lui-2188661/"
 socialImage: "./social.png"
 ---

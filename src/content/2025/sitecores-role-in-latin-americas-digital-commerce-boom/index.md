@@ -3,7 +3,7 @@ title: "The Power of Personalization: Sitecore's Role in Latin America's Digital
 author: "Andrea Rosero Vela"
 pubDate: 2025-12-11
 description: "How Sitecore CDP and Personalize fueled a Latin American airline's digital commerce success."
-authorImage: "../../../assets/authors/andrea-rosero-vela.jpg"
+authorImage: "@/assets/authors/andrea-rosero-vela.jpg"
 authorUrl: "https://www.linkedin.com/in/andrea-rosero-vela"
 socialImage: "./social.png"
 ---

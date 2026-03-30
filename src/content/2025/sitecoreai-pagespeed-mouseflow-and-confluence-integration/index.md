@@ -3,7 +3,7 @@ title: "Practical SitecoreAI Extensions: A POC Guide to PageSpeed, Mouseflow, an
 author: "Koen Heye"
 pubDate: 2025-12-15
 description: "Extend SitecoreAI with custom integrations for PageSpeed, Mouseflow, & Confluence."
-authorImage: "../../../assets/authors/koen-heye.jpg"
+authorImage: "@/assets/authors/koen-heye.jpg"
 authorUrl: "https://www.linkedin.com/in/koenheye"
 socialImage: "./social.png"
 ---

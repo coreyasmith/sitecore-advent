@@ -3,7 +3,7 @@ title: "How to Extract Markdown from Content Hub Assets for GenAI"
 author: "Mark Lowe"
 pubDate: 2025-12-22
 description: "Convert Content Hub PDFs to LLM-ready Markdown using Azure Service Bus and Python."
-authorImage: "../../../assets/authors/mark-lowe.jpg"
+authorImage: "@/assets/authors/mark-lowe.jpg"
 authorUrl: "https://www.linkedin.com/in/misterlowe/"
 socialImage: "./social.png"
 ---

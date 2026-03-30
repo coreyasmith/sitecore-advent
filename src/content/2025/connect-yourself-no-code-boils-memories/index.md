@@ -3,7 +3,7 @@ title: "Connect Yourself: No Code Boils Memories"
 author: "Rodrigo Peplau"
 pubDate: 2025-12-04
 description: "From MSX computers to Sitecore Connect: a developer reflects on code, community, and change."
-authorImage: "../../../assets/authors/rodrigo-peplau.jpg"
+authorImage: "@/assets/authors/rodrigo-peplau.jpg"
 authorUrl: "https://www.linkedin.com/in/rodrigopeplau/"
 socialImage: "./social.png"
 ---

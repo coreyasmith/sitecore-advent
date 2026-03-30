@@ -3,7 +3,7 @@ title: "A Journey to Improve Your Sitecore Request Performance Without Getting a
 author: "Adam Najmanowicz"
 pubDate: 2025-12-08
 description: "Profile Sitecore requests smarter with JetBrains dotTrace API and custom pipelines."
-authorImage: "../../../assets/authors/adam-najmanowicz.jpg"
+authorImage: "@/assets/authors/adam-najmanowicz.jpg"
 authorUrl: "https://www.linkedin.com/in/najmanowicz/"
 socialImage: "./social.png"
 ---

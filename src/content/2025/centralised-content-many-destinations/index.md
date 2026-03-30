@@ -3,7 +3,7 @@ title: "Channels, Channels Everywhere: Centralised Content, Many Destinations"
 author: "Tim Marsh"
 pubDate: 2025-12-05
 description: "Stop duplicating content. Learn to create once and publish to every channel with Sitecore."
-authorImage: "../../../assets/authors/tim-marsh.jpg"
+authorImage: "@/assets/authors/tim-marsh.jpg"
 authorUrl: "https://www.linkedin.com/in/timothy-m-7b2b153a/"
 socialImage: "./social.png"
 ---

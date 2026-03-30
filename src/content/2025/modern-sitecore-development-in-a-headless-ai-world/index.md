@@ -3,7 +3,7 @@ title: "Modern Sitecore Development in a Headless AI World"
 author: "Eric Sanner"
 pubDate: 2025-12-17
 description: "From traditional MVC to headless NextJS: how Sitecore development evolved and AI's role in it."
-authorImage: "../../../assets/authors/eric-sanner.jpg"
+authorImage: "@/assets/authors/eric-sanner.jpg"
 authorUrl: "https://www.linkedin.com/in/ericsanner/"
 socialImage: "./social.png"
 ---

@@ -3,7 +3,7 @@ title: "Sitecore Community: Where Passion Meets Opportunity"
 author: "Tamas Varga"
 pubDate: 2025-12-26
 description: "Discover the vibrant Sitecore Community of 30,000+ passionate developers, marketers, and MVPs."
-authorImage: "../../../assets/authors/tamas-varga.jpg"
+authorImage: "@/assets/authors/tamas-varga.jpg"
 authorUrl: "https://www.linkedin.com/in/vargat/"
 socialImage: "./social.png"
 ---

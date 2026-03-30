@@ -3,7 +3,7 @@ title: "Epic Sitecore LLMs Battle: Anthropic vs OpenAI vs DeepSeek vs Google vs 
 author: "Anton Tishchenko"
 pubDate: 2025-12-02
 description: "Five AI vendors compete in Sitecore tasks and trivia. See which LLM takes the crown."
-authorImage: "../../../assets/authors/anton-tishchenko.jpg"
+authorImage: "@/assets/authors/anton-tishchenko.jpg"
 authorUrl: "https://www.linkedin.com/in/anton-tishchenko/"
 socialImage: "./social.png"
 ---

@@ -3,7 +3,7 @@ title: "From Carts to Clicks: Personalizing Commerce with Sitecore"
 author: "Hetal Dave"
 pubDate: 2025-12-23
 description: "Solve cart abandonment, low AOV, and retention with Sitecore Personalize. Start small, scale smart."
-authorImage: "../../../assets/authors/hetal-dave.jpg"
+authorImage: "@/assets/authors/hetal-dave.jpg"
 authorUrl: "https://www.linkedin.com/in/hdave/"
 socialImage: "./social.png"
 ---

@@ -3,7 +3,7 @@ title: "Who Sees What? Designing Flexible Asset Security in Sitecore Content Hub
 author: "Rob Habraken"
 pubDate: 2025-12-12
 description: "Control who sees what in Content Hub with layered policies and metadata-driven rules."
-authorImage: "../../../assets/authors/rob-habraken.jpg"
+authorImage: "@/assets/authors/rob-habraken.jpg"
 authorUrl: "https://www.linkedin.com/in/robhabraken/"
 socialImage: "./social.png"
 ---

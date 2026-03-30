@@ -3,7 +3,7 @@ title: "What Are the Costs of NOT Having an Accessible Website and Why Should Yo
 author: "Anna Pokorná"
 pubDate: 2025-12-19
 description: "Explore the legal risks, business costs, and benefits of making your website accessible."
-authorImage: "../../../assets/authors/anna-pokorna.jpg"
+authorImage: "@/assets/authors/anna-pokorna.jpg"
 authorUrl: "https://www.linkedin.com/in/anna-pokorn%C3%A1-214017a5/"
 socialImage: "./social.png"
 ---

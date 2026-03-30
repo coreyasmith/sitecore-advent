@@ -3,7 +3,7 @@ title: "Turning Complexity into Clarity: SitecoreAI Architectural Diagrams That 
 author: "Jesper Balle"
 pubDate: 2025-12-24
 description: "Create clear, version-controlled SitecoreAI architecture diagrams using text-based tools."
-authorImage: "../../../assets/authors/jesper-balle.jpg"
+authorImage: "@/assets/authors/jesper-balle.jpg"
 authorUrl: "https://www.linkedin.com/in/jballe/"
 socialImage: "./social.png"
 ---
