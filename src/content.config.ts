@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 const advent2025 = defineCollection({
@@ -13,7 +14,7 @@ const advent2025 = defineCollection({
       updatedDate: z.coerce.date().optional(),
       author: z.string(),
       authorImage: image().optional(),
-      authorUrl: z.string().url().optional(),
+      authorUrl: z.url().optional(),
       socialImage: image().optional(),
     }),
 });
