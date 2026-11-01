@@ -1,3 +1,6 @@
+---
+import logo from '@/assets/logo.svg';
+---
 <script>
   import '@zachleat/snow-fall';
 </script>
@@ -7,3 +10,5 @@
   }
 </style>
 <snow-fall style="--snow-fall-color: white; --snow-fall-size: 15px"></snow-fall>
+<!-- --snow-fall-color is used as a background, so it can be an image. Flakes are clipped to a circle, so keep the logo inside it. -->
+<snow-fall count="12" style={`--snow-fall-color: url(${logo.src}) center / 70% no-repeat; --snow-fall-size: 40px`}></snow-fall>
