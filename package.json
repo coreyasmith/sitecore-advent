@@ -27,6 +27,9 @@
     "@tailwindcss/oxide-linux-x64-gnu": "^4.3.2",
     "lightningcss-linux-x64-gnu": "^1.32.0"
   },
+  "overrides": {
+    "postcss-selector-parser": "^6.1.5"
+  },
   "allowScripts": {
     "sharp": true,
     "esbuild": true
