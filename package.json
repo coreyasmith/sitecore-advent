@@ -31,7 +31,6 @@
     "postcss-selector-parser": "^6.1.5"
   },
   "allowScripts": {
-    "sharp": true,
-    "esbuild": true
+    "sharp": true
   }
 }
