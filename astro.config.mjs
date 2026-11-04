@@ -13,10 +13,11 @@ export default defineConfig({
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		shikiConfig: {
-			// Upstream grammars use display names, so set the code block language IDs
+			// Upstream grammars use display names, so set the code block language IDs.
+			// Types inferred from the JSON don't match Shiki's grammar types, hence `any`.
 			langs: [
-				{ ...plantuml, name: 'plantuml' },
-				{ ...structurizr, name: 'structurizr' },
+				{ .../** @type {any} */ (plantuml), name: 'plantuml' },
+				{ .../** @type {any} */ (structurizr), name: 'structurizr' },
 			],
 		},
 	},
