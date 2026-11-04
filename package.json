@@ -12,11 +12,11 @@
     "@astrojs/mdx": "^8.1.2",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@tailwindcss/vite": "^4.3.2",
+    "@tailwindcss/vite": "^4.3.4",
     "@zachleat/snow-fall": "^1.0.3",
     "astro": "^7.4.5",
     "sharp": "^0.35.3",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.4"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19"
@@ -24,7 +24,7 @@
   "optionalDependencies": {
     "@img/sharp-linux-x64": "^0.35.3",
     "@rolldown/binding-linux-x64-gnu": "^1.1.4",
-    "@tailwindcss/oxide-linux-x64-gnu": "^4.3.2",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.3.4",
     "lightningcss-linux-x64-gnu": "^1.32.0"
   },
   "overrides": {
