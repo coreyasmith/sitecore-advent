@@ -4,12 +4,15 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import FormattedDate from '@/components/FormattedDate.astro';
 
-type Props = CollectionEntry<'advent2025' | 'advent2026'>['data'];
+type Props = CollectionEntry<'advent2025' | 'advent2026'>['data'] & {
+  /** The calendar year the post belongs to */
+  year: number;
+};
 
-const { title, author, pubDate, description, authorImage, authorUrl, socialImage } = Astro.props;
+const { title, author, pubDate, description, authorImage, authorUrl, socialImage, year } = Astro.props;
 ---
 
-<Layout title={title} description={description} image={socialImage} enableSnowfall={false}>
+<Layout title={title} description={description} image={socialImage} enableSnowfall={false} year={year}>
   <article class="bg-green-950/90 rounded-2xl p-8 shadow-lg">
     <h1 class="text-3xl font-bold mb-4">{title}</h1>
 

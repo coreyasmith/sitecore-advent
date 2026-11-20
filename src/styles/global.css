@@ -12,7 +12,11 @@ html, body {
 	cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMicgaGVpZ2h0PSczMicgc3R5bGU9J2ZvbnQtc2l6ZToyNHB4Jz48dGV4dCB5PScyNCc+4puEPC90ZXh0Pjwvc3ZnPg==") 16 16, pointer;
 }
 
-a:hover, button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+/* Links and the whole year menu (its pill and dropdown, gaps included) carry the link
+   cursor all the time, not just on :hover. A cursor only shows over its element anyway,
+   and Chrome can pick the cursor before it applies :hover, so a :hover-only cursor
+   flickers back to the default for a moment as the mouse moves onto a link. */
+a, button, summary, input[type="submit"], input[type="button"], .year-menu {
 	cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMicgaGVpZ2h0PSczMicgc3R5bGU9J2ZvbnQtc2l6ZToyNHB4Jz48dGV4dCB5PScyNCc+8J+mjDwvdGV4dD48L3N2Zz4=") 16 16, pointer;
 }
 

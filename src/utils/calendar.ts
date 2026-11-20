@@ -23,7 +23,8 @@ export async function getYearPosts(year: number) {
 
 /**
  * The posts on a year's calendar, in door order: those dated from December 1 up to
- * when the site is built. Each build opens the doors whose day has come.
+ * when the site is built. Each build opens the doors whose day has come. The header's
+ * year menu counts these too, so its post counts always match the calendar.
  */
 export async function getCalendarPosts(year: number) {
   const start = new Date(`${year}-12-01`);
@@ -37,14 +38,14 @@ export async function getCalendarPosts(year: number) {
 
 // Door colors. Class strings are written out in full so Tailwind picks them up.
 const doorColors = {
-  fuchsia: 'from-fuchsia-500 to-fuchsia-700',
-  rose: 'from-rose-500 to-rose-700',
-  green: 'from-green-500 to-green-700',
-  blue: 'from-blue-500 to-blue-700',
-  yellow: 'from-yellow-500 to-yellow-700',
-  purple: 'from-purple-500 to-purple-700',
-  teal: 'from-teal-500 to-teal-700',
-  orange: 'from-orange-500 to-orange-700',
+  fuchsia: { classes: 'from-fuchsia-500 to-fuchsia-700', hex: '#d946ef' },
+  rose: { classes: 'from-rose-500 to-rose-700', hex: '#f43f5e' },
+  green: { classes: 'from-green-500 to-green-700', hex: '#22c55e' },
+  blue: { classes: 'from-blue-500 to-blue-700', hex: '#3b82f6' },
+  yellow: { classes: 'from-yellow-500 to-yellow-700', hex: '#eab308' },
+  purple: { classes: 'from-purple-500 to-purple-700', hex: '#a855f7' },
+  teal: { classes: 'from-teal-500 to-teal-700', hex: '#14b8a6' },
+  orange: { classes: 'from-orange-500 to-orange-700', hex: '#f97316' },
 };
 
 // Each year uses the same eight colors in its own order. The 2026 order starts
@@ -64,5 +65,32 @@ export function getDoorColor(index: number, year: number) {
   const colors = colorsFor(year);
   const row = Math.floor(index / 5);
   const col = index % 5;
-  return doorColors[colors[(col + row * 2) % colors.length]];
+  return doorColors[colors[(col + row * 2) % colors.length]].classes;
 }
+
+/** The first six colors of `year`'s calendar, for the doors on the year menu's calendar icon */
+export function getIconColors(year: number) {
+  return colorsFor(year).slice(0, 6).map((name) => doorColors[name].hex);
+}
+
+/** The year menu's calendar icon, in a year's site theme */
+export interface IconTheme {
+  /** The page the doors sit on */
+  page: string;
+  /** The edge around the page */
+  frame: string;
+  /** The band across the top */
+  band: string;
+  /** The binder rings */
+  rings: string;
+  /** Doors whose post isn't live yet */
+  lockedDoor: string;
+}
+
+// Each year's icon matches that year's site theme. A year without its own theme uses
+// 2025's (2026 does until it gets a reskin).
+const iconThemes: Record<number, IconTheme> = {
+  2025: { page: '#fff', frame: '#15803d', band: '#15803d', rings: '#dc2626', lockedDoor: '#d1d5db' },
+};
+
+export const getIconTheme = (year: number) => iconThemes[year] ?? iconThemes[2025];

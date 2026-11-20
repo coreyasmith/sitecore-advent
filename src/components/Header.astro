@@ -2,6 +2,14 @@
 import { SITE_TITLE } from '@/consts';
 import logo from '@/assets/logo.svg';
 import HeaderStringLights from './HeaderStringLights.astro';
+import YearMenu from './YearMenu.astro';
+
+interface Props {
+  /** The calendar year the page belongs to, for the year menu */
+  year?: number;
+}
+
+const { year } = Astro.props;
 
 // The title's two lines in the compact header: "Sitecore Community" over "Advent Calendar"
 const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
@@ -10,46 +18,98 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
     in plain CSS media queries), the site's one breakpoint: compact below it, with the title
     on two lines and every other string light, and full from there up, with the title on one
     line and the RSS bauble. */}
-<header class="relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
+<header class="site-header relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
   <a href="/" class="flex min-w-0 items-center space-x-3 transition transform motion-safe:hover:scale-105 duration-300 md:space-x-4">
     {/* Decorative: the title beside it names the link, so screen readers don't hear it twice */}
     <img src={logo.src} alt="" class="h-10 md:h-12" />
     {/* Not a heading: each page's own title is its h1. Balanced, so if it ever has to wrap
         anyway, it splits the same way. */}
-    <span class="site-title text-xl font-extrabold leading-tight text-balance md:text-2xl">
+    <span class="site-title font-extrabold leading-tight text-balance md:text-2xl">
       {titleTop}<br class="md:hidden" /> {titleBottom}
     </span>
   </a>
 
-  <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->
-  <a 
-    href="/rss.xml" 
-    class="hidden md:flex flex-col items-center transition transform motion-safe:hover:scale-105 duration-300"
-    title="RSS Feed"
-    aria-label="Subscribe to RSS Feed"
-  >
-    <div class="w-4 h-1.5 bg-slate-400 rounded-sm"></div>
-    <div class="h-10 w-10 bg-linear-to-br from-red-700 to-red-900 rounded-full flex items-center justify-center -mt-0.5">
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 24 24" 
-        fill="currentColor" 
-        class="w-8 h-8 text-white/90"
-      >
-        <circle cx="6.18" cy="17.82" r="2.18"/>
-        <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
-      </svg>
-    </div>
-  </a>
+  <div class="flex shrink-0 items-center gap-6">
+    <YearMenu year={year} />
+
+    <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->
+    <a
+      href="/rss.xml"
+      class="hidden md:flex flex-col items-center transition transform motion-safe:hover:scale-105 duration-300"
+      title="RSS Feed"
+      aria-label="Subscribe to RSS Feed"
+    >
+      <div class="w-4 h-1.5 bg-slate-400 rounded-sm"></div>
+      <div class="h-10 w-10 bg-linear-to-br from-red-700 to-red-900 rounded-full flex items-center justify-center -mt-0.5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-8 h-8 text-white/90"
+        >
+          <circle cx="6.18" cy="17.82" r="2.18"/>
+          <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/>
+        </svg>
+      </div>
+    </a>
+  </div>
 
   <HeaderStringLights glow={true} />
 </header>
-<style>
+
+{/* Dims and blurs the page while the year menu is open on a phone. A tap on it is a
+    click outside the menu, which closes it. */}
+<div class="year-menu-backdrop fixed inset-0 z-[10000] bg-black/75 backdrop-blur-sm" aria-hidden="true"></div>
+
+<style is:global>
+  /* The year menu's phone sheet. The backdrop (z 10000) covers the page and the snow
+     (9999). The header rises above it (10001), so it stays bright and its pill can
+     close the sheet. Inside the header the string lights (20) hang over the sheet (10). */
+  .year-menu-backdrop {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    /* Fades with the sheet (see YearMenu) */
+    transition: opacity 180ms ease-out, display 180ms allow-discrete;
+  }
+  .site-header .string-lights {
+    z-index: 20;
+  }
   /* The title is set in Grandstander (see astro.config), centered on its capital letters
      rather than its line box: the font leaves more room below its letters than above, which
      would have it riding a couple of pixels high next to the logo. */
   .site-title {
     font-family: var(--font-grandstander);
     text-box: trim-both cap alphabetic;
+  }
+  /* Below `md` the title shrinks with the screen, so "Sitecore Community" still fits on its
+     first line beside the year menu. The room for it is the screen less --header-rest (the
+     padding, logo, gaps and year pill, plus a little to spare), and the phrase is about
+     9.8 times as wide as the font size. Below about 370px it wraps onto a third line. */
+  @media (width < 48rem) {
+    .site-title {
+      --header-rest: 13.75rem;
+      font-size: clamp(1rem, (100vw - var(--header-rest)) / 9.8, 1.25rem);
+    }
+  }
+  @media (width < 48rem) {
+    .site-header {
+      /* On close, stay above the backdrop until it has faded out */
+      transition: z-index 0s 180ms allow-discrete;
+    }
+    body:has(details.year-menu[open]) .year-menu-backdrop {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @starting-style {
+      body:has(details.year-menu[open]) .year-menu-backdrop {
+        opacity: 0;
+      }
+    }
+    body:has(details.year-menu[open]) .site-header {
+      z-index: 10001;
+      transition-delay: 0s;
+    }
   }
 </style>

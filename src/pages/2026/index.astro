@@ -12,7 +12,7 @@ const posts = await getCalendarPosts(2026);
 const welcome = await getEntry('advent2026', 'welcome');
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} year={2026}>
   <Calendar posts={posts} year={2026}>
     {welcome && (
       <div class="mb-6">

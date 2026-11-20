@@ -6,7 +6,8 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Analytics from "@/components/Analytics.astro";
 
-const { title, description, image, enableSnowfall = true } = Astro.props;
+// `year` is the calendar the page belongs to; the header's year menu shows it
+const { title, description, image, enableSnowfall = true, year } = Astro.props;
 ---
 
 <html lang="en">
@@ -15,7 +16,7 @@ const { title, description, image, enableSnowfall = true } = Astro.props;
 </head>
 <body class="text-white min-h-screen flex flex-col" style={`background-image: url(${background.src}); background-size: 100px 100px; background-repeat: repeat;`}>
   {enableSnowfall && <SnowFall />}
-  <Header />
+  <Header year={year} />
 
   <main class="grow p-6 max-w-6xl mx-auto w-full">
     <slot />
