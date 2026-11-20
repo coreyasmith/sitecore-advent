@@ -3,8 +3,9 @@
 // list of every year. From `md` up the list is a small dropdown under the pill.
 // On phones it is a full-width sheet under the header, over a dimmed page; the
 // Header component owns the dimming and keeps itself above it.
-import { CALENDAR_YEARS, getCalendarPosts } from '@/utils/calendar';
+import { CALENDAR_YEARS, calendarHref, getCalendarPosts, postCountLabel } from '@/utils/calendar';
 import CalendarIcon from './CalendarIcon.astro';
+import CalendarStackIcon from './CalendarStackIcon.astro';
 
 interface Props {
   /** The calendar year the page belongs to, if any */
@@ -12,24 +13,23 @@ interface Props {
 }
 
 const { year } = Astro.props;
-const shownYear = year ?? CALENDAR_YEARS[0];
-// Each year's count matches its calendar's open doors. A year with none open yet
-// (the weeks before December) says when it starts instead of "0 posts".
-const countLabel = (posts: number) => (posts === 0 ? 'Starts December 1st' : posts === 1 ? '1 post' : `${posts} posts`);
+// Each year's count matches its calendar's open doors.
 const years = await Promise.all(
   CALENDAR_YEARS.map(async (y) => {
     const open = (await getCalendarPosts(y)).length;
-    // The home page is the newest year's calendar (src/pages/index.astro), so that year links home.
-    const href = y === CALENDAR_YEARS[0] ? '/' : `/${y}/`;
-    return { year: y, href, open, count: countLabel(open) };
+    return { year: y, href: calendarHref(y), open, count: postCountLabel(open) };
   }),
 );
-const shownOpen = years.find((y) => y.year === shownYear)?.open ?? 0;
+
+// The pill's calendar icon shows how many of its year's doors are open
+const yearOpen = years.find((y) => y.year === year)?.open ?? 0;
 
 // The year's calendar page is the current page; its posts are only the current calendar.
 // The newest year's calendar is the home page, and is also at /<year>/.
 const currentFor = (y: number, href: string) =>
   y !== year ? undefined : [href, `/${y}/`].includes(Astro.url.pathname) ? 'page' : 'true';
+const allCalendarsHref = '/calendars/';
+const onAllCalendars = Astro.url.pathname === allCalendarsHref;
 ---
 
 {/* From `md` up the dropdown is positioned against this wrapper. On phones it is
@@ -40,10 +40,21 @@ const currentFor = (y: number, href: string) =>
         larger, along with the rest of the header (see Header). */}
     <summary
       class="relative flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-white/20 bg-white/10 py-2.5 pl-2.5 pr-3 text-sm font-semibold transition hover:bg-white/20 md:gap-2 md:py-2 md:pl-3 md:pr-4 md:text-base [&::-webkit-details-marker]:hidden"
-      aria-label={`${shownYear} calendar. Choose a year`}
+      aria-label={year === undefined ? 'All Calendars. Choose a year' : `${year} calendar. Choose a year`}
     >
-      <CalendarIcon year={shownYear} open={shownOpen} class="h-6 w-6 shrink-0 drop-shadow" />
-      <span>{shownYear}</span>
+      {/* A page outside any one year (the All Calendars page) shows the All Calendars icon
+          and label: "All" in the compact header, "All Calendars" in the full one (see Header) */}
+      {year === undefined ? (
+        <>
+          <CalendarStackIcon class="h-6 w-6 shrink-0" />
+          <span><span class="md:hidden">All</span><span class="hidden md:inline">All Calendars</span></span>
+        </>
+      ) : (
+        <>
+          <CalendarIcon year={year} open={yearOpen} class="h-6 w-6 shrink-0 drop-shadow" />
+          <span>{year}</span>
+        </>
+      )}
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
       </svg>
@@ -53,7 +64,9 @@ const currentFor = (y: number, href: string) =>
          From `md` up z-[10000] keeps the dropdown above the snow (9999). */}
     <div class="year-panel absolute left-0 right-0 top-full z-10 rounded-b-2xl bg-green-950 p-3 pb-4 pt-5 shadow-2xl ring-1 ring-white/15 md:left-auto md:right-0 md:top-auto md:z-[10000] md:mt-3 md:w-56 md:rounded-xl md:p-1.5">
       <p class="px-4 pb-2 pt-1 text-xs font-semibold uppercase tracking-wider text-white/50 md:hidden">Advent calendars</p>
-      <ul class="year-list space-y-1 md:space-y-0">
+      {/* The space above the All Calendars divider is the list's own padding, not a margin,
+          so the mouse is always over the list or the footer between rows (see the style) */}
+      <ul class="year-list space-y-1 pb-2 md:space-y-0 md:pb-1">
         {years.map(({ year: y, href, open, count }) => (
           <li>
             <a
@@ -65,14 +78,15 @@ const currentFor = (y: number, href: string) =>
               ]}
             >
               {/* Every year has its calendar icon. The current year's is in full color on
-                  its highlighted row; the others are muted until hovered or focused. */}
+                  its highlighted row; the others are muted until hovered or focused. On a
+                  page outside any one year, all are in color. */}
               <span class="flex items-center gap-2.5 font-semibold md:gap-2">
                 <CalendarIcon
                   year={y}
                   open={open}
                   class:list={[
                     'h-6 w-6 shrink-0 drop-shadow transition md:h-5 md:w-5',
-                    y !== year && 'opacity-45 grayscale group-hover/year:opacity-100 group-hover/year:grayscale-0 group-focus-visible/year:opacity-100 group-focus-visible/year:grayscale-0',
+                    year !== undefined && y !== year && 'opacity-45 grayscale group-hover/year:opacity-100 group-hover/year:grayscale-0 group-focus-visible/year:opacity-100 group-focus-visible/year:grayscale-0',
                   ]}
                 />
                 {y}
@@ -82,6 +96,27 @@ const currentFor = (y: number, href: string) =>
           </li>
         ))}
       </ul>
+      {/* All Calendars: a row like the years, with a little stack of two calendars */}
+      <div class="year-panel-footer border-t border-white/10 pt-2 md:pt-1">
+        <a
+          href={allCalendarsHref}
+          aria-current={onAllCalendars ? 'page' : undefined}
+          class:list={[
+            'group/year flex items-center gap-2.5 rounded-xl px-4 py-4 text-lg font-semibold transition hover:bg-white/10 focus-visible:bg-white/10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white/70 md:gap-2 md:rounded-lg md:px-3 md:py-2 md:text-base',
+            onAllCalendars && 'bg-white/10',
+          ]}
+        >
+          {/* The stack fills the same slot as a year's icon, so the label lines up with the
+              years. Like an inactive year, it's muted unless this is the current page. */}
+          <CalendarStackIcon
+            class:list={[
+              'h-6 w-6 shrink-0 transition md:h-5 md:w-5',
+              !onAllCalendars && 'opacity-45 grayscale group-hover/year:opacity-100 group-hover/year:grayscale-0 group-focus-visible/year:opacity-100 group-focus-visible/year:grayscale-0',
+            ]}
+          />
+          All Calendars
+        </a>
+      </div>
     </div>
   </details>
 </div>
@@ -108,10 +143,12 @@ const currentFor = (y: number, href: string) =>
 </script>
 
 <style is:global>
-  /* One highlight at a time: while another year is hovered or focused, the current
-     year drops its background. */
-  .year-list:has(a:hover) a[aria-current]:not(:hover),
-  .year-list:has(a:focus-visible) a[aria-current]:not(:focus-visible) {
+  /* One highlight at a time: while the mouse is over the rows (a year, All Calendars or the
+     space between them) or another row is focused, the current one drops its background.
+     Keying off the rows rather than a hovered link keeps the current one from flashing
+     back on as the mouse crosses the gap above All Calendars. */
+  .year-panel:has(:is(.year-list, .year-panel-footer):hover) a[aria-current]:not(:hover),
+  .year-panel:has(a:focus-visible) a[aria-current]:not(:focus-visible) {
     background-color: transparent;
   }
 
@@ -158,8 +195,8 @@ const currentFor = (y: number, href: string) =>
     }
   }
 
-  /* Phones: the sheet fades in without the drop, then the heading and each year drop
-     in one after another. Closing fades everything together. */
+  /* Phones: the sheet fades in without the drop, then the heading, each year and the
+     All Calendars link drop in one after another. Closing fades everything together. */
   @media (width < 48rem) and (prefers-reduced-motion: no-preference) {
     details.year-menu .year-panel {
       transition: opacity 150ms ease-out;
@@ -167,14 +204,15 @@ const currentFor = (y: number, href: string) =>
     details.year-menu:not([open]) .year-panel {
       translate: none;
     }
-    details.year-menu .year-panel :is(p, li) {
+    details.year-menu .year-panel :is(p, li, .year-panel-footer) {
       transition: opacity 240ms ease-out, translate 240ms ease-out;
     }
     /* Any later years share the last delay */
     details.year-menu[open] .year-panel li:nth-child(1) { transition-delay: 70ms; }
     details.year-menu[open] .year-panel li:nth-child(2) { transition-delay: 140ms; }
     details.year-menu[open] .year-panel li:nth-child(n + 3) { transition-delay: 210ms; }
-    details.year-menu:not([open]) .year-panel :is(p, li) {
+    details.year-menu[open] .year-panel .year-panel-footer { transition-delay: 210ms; }
+    details.year-menu:not([open]) .year-panel :is(p, li, .year-panel-footer) {
       opacity: 0;
       translate: 0 -10px;
       transition-duration: 150ms;
@@ -183,7 +221,7 @@ const currentFor = (y: number, href: string) =>
       details.year-menu[open] .year-panel {
         translate: none;
       }
-      details.year-menu[open] .year-panel :is(p, li) {
+      details.year-menu[open] .year-panel :is(p, li, .year-panel-footer) {
         opacity: 0;
         translate: 0 -10px;
       }

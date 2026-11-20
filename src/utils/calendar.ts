@@ -12,6 +12,16 @@ type CalendarYear = keyof typeof collections;
 export const CALENDAR_YEARS = Object.keys(collections).map(Number).sort((a, b) => b - a);
 
 /**
+ * Where to link a year's calendar. The home page is the newest year's calendar
+ * (src/pages/index.astro), so that year links home.
+ */
+export const calendarHref = (year: number) => (year === CALENDAR_YEARS[0] ? '/' : `/${year}/`);
+
+/** How many posts a calendar has open. One with none yet (the weeks before December) says when it starts. */
+export const postCountLabel = (posts: number) =>
+  posts === 0 ? 'Starts December 1st' : posts === 1 ? '1 post' : `${posts} posts`;
+
+/**
  * All of a year's posts, oldest first, including any from before December 1 (like
  * 2025's welcome post). The RSS feed lists these.
  */

@@ -3,13 +3,18 @@ import { SITE_TITLE } from '@/consts';
 import logo from '@/assets/logo.svg';
 import HeaderStringLights from './HeaderStringLights.astro';
 import YearMenu from './YearMenu.astro';
+import { calendarHref } from '@/utils/calendar';
 
 interface Props {
-  /** The calendar year the page belongs to, for the year menu */
+  /** The calendar year the page belongs to, for the year menu and the logo link */
   year?: number;
 }
 
 const { year } = Astro.props;
+
+// The logo goes back to the calendar you're in: the year's own calendar on its pages (the
+// newest year's is the home page), and home from a page outside any year
+const homeHref = year === undefined ? '/' : calendarHref(year);
 
 // The title's two lines in the compact header: "Sitecore Community" over "Advent Calendar"
 const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
@@ -17,14 +22,14 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
 {/* The header has two sizes and switches once, at Tailwind's `md` breakpoint (768px; 48rem
     in plain CSS media queries), the site's one breakpoint: compact below it, with the title
     on two lines and every other string light, and full from there up, with the title on one
-    line and the RSS bauble. */}
+    line, "All Calendars" spelled out on that page's pill, and the RSS bauble. */}
 <header class="site-header relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
-  <a href="/" class="flex min-w-0 items-center space-x-3 transition transform motion-safe:hover:scale-105 duration-300 md:space-x-4">
+  <a href={homeHref} class="flex min-w-0 items-center space-x-3 transition transform motion-safe:hover:scale-105 duration-300 md:space-x-4">
     {/* Decorative: the title beside it names the link, so screen readers don't hear it twice */}
     <img src={logo.src} alt="" class="h-10 md:h-12" />
     {/* Not a heading: each page's own title is its h1. Balanced, so if it ever has to wrap
         anyway, it splits the same way. */}
-    <span class="site-title font-extrabold leading-tight text-balance md:text-2xl">
+    <span class="site-title font-extrabold leading-tight text-balance">
       {titleTop}<br class="md:hidden" /> {titleBottom}
     </span>
   </a>
@@ -90,6 +95,17 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
     .site-title {
       --header-rest: 13.75rem;
       font-size: clamp(1rem, (100vw - var(--header-rest)) / 9.8, 1.25rem);
+    }
+  }
+  /* From `md` up the whole title is on one line, and it does the same: just past `md` it's
+     about 20px, the size it had on two lines, so it fits beside the widest pill, "All
+     Calendars", and it reaches its full 1.5rem by about 835px. Here --header-rest is the full
+     header's padding, logo, gaps, that pill and the RSS bauble, plus room for a scrollbar,
+     and the title is about 18.3 times as wide as the font size. */
+  @media (width >= 48rem) {
+    .site-title {
+      --header-rest: 24.75rem;
+      font-size: min((100vw - var(--header-rest)) / 18.3, 1.5rem);
     }
   }
   @media (width < 48rem) {

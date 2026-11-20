@@ -1,0 +1,35 @@
+---
+// One year's authors laid out like its calendar: a face for each open door, edged in
+// that day's door color, then locked squares for the doors still to open. Used on the
+// All Calendars page. The faces load right away, since a big screen shows every calendar.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getDoorColor } from '@/utils/calendar';
+
+interface Props {
+  year: number;
+  posts: CollectionEntry<'advent2025' | 'advent2026'>[];
+  class?: string;
+}
+
+const { year, posts, class: className } = Astro.props;
+const totalDays = 25;
+const locked = Math.max(0, totalDays - posts.length);
+---
+
+<div class:list={['grid grid-cols-5 gap-1.5 md:gap-2', className]} aria-hidden="true">
+  {posts.map((post, i) => (
+    <span class={`block aspect-square rounded-xl bg-linear-to-br ${getDoorColor(i, year)} p-[3px] shadow-md`} title={`Day ${i + 1} · ${post.data.author}`}>
+      {post.data.authorImage ? (
+        <Image src={post.data.authorImage} alt="" width={200} height={200} loading="eager" class="h-full w-full rounded-[9px] object-cover" />
+      ) : (
+        <span class="flex h-full w-full items-center justify-center rounded-[9px] bg-black/30 text-xs font-bold">
+          {post.data.author.split(' ').map((name) => name[0]).join('')}
+        </span>
+      )}
+    </span>
+  ))}
+  {Array.from({ length: locked }).map(() => (
+    <span class="flex aspect-square items-center justify-center rounded-xl bg-white/10 text-base opacity-70">🔒</span>
+  ))}
+</div>
