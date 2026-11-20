@@ -6,8 +6,9 @@ import HeaderStringLights from './HeaderStringLights.astro';
 <header class="relative flex items-center justify-between p-6 bg-green-950/80 shadow-lg">
   <a href="/" class="flex items-center space-x-4 transition transform hover:scale-105 duration-300">
     <img src={logo.src} alt={SITE_TITLE} class="h-12" />
-    {/* Not a heading: each page's own title is its h1 */}
-    <span class="text-2xl font-bold">{SITE_TITLE}</span>
+    {/* Not a heading: each page's own title is its h1. Balanced, so when it wraps (on
+        phones) it breaks evenly: "Sitecore Community" over "Advent Calendar". */}
+    <span class="text-2xl font-bold text-balance">{SITE_TITLE}</span>
   </a>
 
   <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->
