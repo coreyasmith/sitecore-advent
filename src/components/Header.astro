@@ -6,7 +6,8 @@ import HeaderStringLights from './HeaderStringLights.astro';
 <header class="relative flex items-center justify-between p-6 bg-green-950/80 shadow-lg">
   <a href="/" class="flex items-center space-x-4 transition transform hover:scale-105 duration-300">
     <img src={logo.src} alt={SITE_TITLE} class="h-12" />
-    <h1 class="text-2xl font-bold">{SITE_TITLE}</h1>
+    {/* Not a heading: each page's own title is its h1 */}
+    <span class="text-2xl font-bold">{SITE_TITLE}</span>
   </a>
 
   <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->
