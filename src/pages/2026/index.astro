@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import Layout from '@/layouts/Layout.astro'
+import Calendar from '@/components/Calendar.astro';
+import { getCalendarPosts } from '@/utils/calendar';
+import "@/styles/global.css";
+
+const { title = "2026", description = "The 2026 Sitecore Community Advent Calendar." } = Astro.props;
+
+const posts = await getCalendarPosts(2026);
+const welcome = await getEntry('advent2026', 'welcome');
+---
+
+<Layout title={title} description={description}>
+  <Calendar posts={posts} year={2026}>
+    {welcome && (
+      <div class="mb-6">
+        <a href="/2026/welcome" class="block bg-green-950/80 border border-white/10 rounded-2xl p-4 shadow-lg hover:shadow-2xl motion-safe:hover:scale-[1.02] transition transform duration-300">
+          <div class="flex items-center mb-2">
+            {welcome.data.authorImage && <Image src={welcome.data.authorImage} alt="" width={80} height={80} loading="eager" class="w-10 h-10 rounded-full mr-3 border-2 border-white/30" />}
+            <div>
+              <h2 class="text-lg font-semibold leading-tight text-white card-text-shadow">Welcome</h2>
+              <p class="text-xs text-white/90 card-text-shadow">{welcome.data.author}</p>
+            </div>
+          </div>
+          <p class="text-sm text-white card-text-shadow mb-2">{welcome.data.title}</p>
+          <span class="text-xs text-white/90 card-text-shadow">Read the introduction <span class="ml-1" aria-hidden="true">→</span></span>
+        </a>
+      </div>
+    )}
+  </Calendar>
+</Layout>

@@ -3,23 +3,36 @@ import { getCollection } from 'astro:content';
 // Each calendar year and the content collection that holds its posts
 const collections = {
   2025: 'advent2025',
+  2026: 'advent2026',
 } as const;
 
 type CalendarYear = keyof typeof collections;
+
+/** Calendar years, newest first. Each has a calendar page at /<year>/. */
+export const CALENDAR_YEARS = Object.keys(collections).map(Number).sort((a, b) => b - a);
+
+/**
+ * All of a year's posts, oldest first, including any from before December 1 (like
+ * 2025's welcome post). The RSS feed lists these.
+ */
+export async function getYearPosts(year: number) {
+  const collection = collections[year as CalendarYear];
+  if (!collection) return [];
+  return (await getCollection(collection)).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+}
 
 /**
  * The posts on a year's calendar, in door order: those dated from December 1 up to
  * when the site is built. Each build opens the doors whose day has come.
  */
 export async function getCalendarPosts(year: number) {
-  const collection = collections[year as CalendarYear];
-  if (!collection) return [];
-
   const start = new Date(`${year}-12-01`);
   const now = new Date();
-  return (await getCollection(collection))
-    .filter((post) => post.data.pubDate >= start && post.data.pubDate <= now)
-    .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+  // No doors open before December 1. Skipping the lookup also keeps Astro from warning
+  // about an empty collection on every page while a new year has no posts yet.
+  if (now < start) return [];
+
+  return (await getYearPosts(year)).filter((post) => post.data.pubDate >= start && post.data.pubDate <= now);
 }
 
 // Door colors. Class strings are written out in full so Tailwind picks them up.
@@ -34,9 +47,11 @@ const doorColors = {
   orange: 'from-orange-500 to-orange-700',
 };
 
-// Each year uses the same eight colors in its own order.
+// Each year uses the same eight colors in its own order. The 2026 order starts
+// on green, and no door shares a color family with the same door in 2025.
 const yearColors: Record<number, (keyof typeof doorColors)[]> = {
   2025: ['fuchsia', 'rose', 'green', 'blue', 'yellow', 'purple', 'teal', 'orange'],
+  2026: ['green', 'blue', 'rose', 'yellow', 'purple', 'teal', 'orange', 'fuchsia'],
 };
 
 const colorsFor = (year: number) => yearColors[year] ?? yearColors[2025];
