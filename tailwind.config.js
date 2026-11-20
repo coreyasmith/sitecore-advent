@@ -84,6 +84,16 @@ module.exports = {
               marginTop: '2em',
               marginBottom: '2em',
             },
+            // Inline code (not code blocks) sits on a tinted pill so it stands out from
+            // the text. When it wraps, each line gets its own rounded ends.
+            ':not(pre) > code': {
+              backgroundColor: 'rgb(255 255 255 / 0.12)',
+              borderRadius: '0.375rem',
+              padding: '0.15em 0.4em',
+              fontWeight: '500',
+              boxDecorationBreak: 'clone',
+              WebkitBoxDecorationBreak: 'clone',
+            },
             'code::before': {
               content: '""',
             },
