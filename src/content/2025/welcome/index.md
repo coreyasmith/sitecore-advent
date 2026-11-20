@@ -21,6 +21,6 @@ If you are interested in participating in the 2026 Sitecore Community Advent Cal
 
 <!-- markdownlint-disable MD033 -->
 <aside class="about-the-author">
-  Corey Smith is an <a href="https://www.coreysmith.co" target="_blank">independent consultant</a> and <a href="https://mvp.sitecore.com/en/Directory/Profile?id=171e81719bb34aabd6b708daa7b618f0" target="_blank">nine-time Sitecore MVP</a> living in Atlanta, GA with his wife and two kids. Every Friday at 12:15 p.m. ET he co-hosts <a href="https://www.linkedin.com/feed/hashtag/sitecorelunch/" target="_blank">#SitecoreLunch</a> with friend and fellow <a href="https://mvp.sitecore.com/en/Directory/Profile?id=416f8d6143b24e7c711b08daa6d42055" target="_blank">Sitecore MVP Jim Petillo</a>. Corey's hobbies are lawn care, jazz, and puppetry.
+  Corey Smith is an <a href="https://www.coreysmith.co" target="_blank">independent consultant</a> and <a href="https://mvp.sitecore.com/en/Directory/Profile?id=171e81719bb34aabd6b708daa7b618f0" target="_blank">ten-time Sitecore MVP</a> living in Atlanta, GA with his wife and two kids. Every Friday at 12:15 p.m. ET he co-hosts <a href="https://www.linkedin.com/feed/hashtag/sitecorelunch/" target="_blank">#SitecoreLunch</a> with friend and fellow <a href="https://mvp.sitecore.com/en/Directory/Profile?id=416f8d6143b24e7c711b08daa6d42055" target="_blank">Sitecore MVP Jim Petillo</a>. Corey's hobbies are lawn care, jazz, and puppetry.
 </aside>
 <!-- markdownlint-enable MD033 -->
