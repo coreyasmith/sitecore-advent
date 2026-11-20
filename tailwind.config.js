@@ -18,6 +18,11 @@ module.exports = {
             '--tw-prose-invert-th-borders': 'rgba(255, 255, 255, 0.5)',
             '--tw-prose-invert-td-borders': 'rgba(255, 255, 255, 0.4)',
 
+            // Anything too long for the line (bare URLs, inline code paths and
+            // namespaces, query strings) breaks where needed instead of running off
+            // the page on phones. Code blocks don't wrap; they still scroll sideways.
+            overflowWrap: 'break-word',
+
             // Reduce spacing between elements
             'p': {
               marginTop: '0.75em',
