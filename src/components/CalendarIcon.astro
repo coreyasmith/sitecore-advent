@@ -16,11 +16,25 @@ const { year, open, class: className } = Astro.props;
 const theme = getIconTheme(year);
 const doorFills = getIconColors(year).map((color, i) => (i < open ? color : theme.lockedDoor));
 const doorSpots = [[5, 11.25], [10.25, 11.25], [15.5, 11.25], [5, 16.25], [10.25, 16.25], [15.5, 16.25]];
+
+// A gradient band needs its own id, since a page shows several of these icons. They're
+// numbered within the page (not at random), so every build gives the same HTML.
+const page = Astro.locals as { calendarIcons?: number };
+const n = (page.calendarIcons = (page.calendarIcons ?? 0) + 1);
+const bandGradient = Array.isArray(theme.band) ? { id: `icon-band-${year}-${n}`, stops: theme.band } : undefined;
 ---
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class={className} aria-hidden="true">
+  {bandGradient && (
+    <defs>
+      <linearGradient id={bandGradient.id}>
+        <stop offset="0" stop-color={bandGradient.stops[0]} />
+        <stop offset="1" stop-color={bandGradient.stops[1]} />
+      </linearGradient>
+    </defs>
+  )}
   <rect x="2.5" y="4" width="19" height="17.5" rx="3" fill={theme.page} stroke={theme.frame} stroke-width="1.6" />
-  <path d="M2.5 7a3 3 0 0 1 3-3h13a3 3 0 0 1 3 3v2.5h-19z" fill={theme.band} />
+  <path d="M2.5 7a3 3 0 0 1 3-3h13a3 3 0 0 1 3 3v2.5h-19z" fill={bandGradient ? `url(#${bandGradient.id})` : (theme.band as string)} />
   <rect x="6.5" y="2" width="2" height="4.5" rx="1" fill={theme.rings} />
   <rect x="15.5" y="2" width="2" height="4.5" rx="1" fill={theme.rings} />
   {doorSpots.map(([x, y], i) => <rect x={x} y={y} width="3.5" height="3.5" rx="0.8" fill={doorFills[i]} />)}

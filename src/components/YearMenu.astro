@@ -62,7 +62,7 @@ const onAllCalendars = Astro.url.pathname === allCalendarsHref;
 
     {/* On phones z-10 keeps the sheet under the string lights inside the raised header.
          From `md` up z-[10000] keeps the dropdown above the snow (9999). */}
-    <div class="year-panel absolute left-0 right-0 top-full z-10 rounded-b-2xl bg-green-950 p-3 pb-4 pt-5 shadow-2xl ring-1 ring-white/15 md:left-auto md:right-0 md:top-auto md:z-[10000] md:mt-3 md:w-56 md:rounded-xl md:p-1.5">
+    <div class="year-panel absolute left-0 right-0 top-full z-10 rounded-b-2xl bg-surface p-3 pb-4 pt-5 shadow-2xl ring-1 ring-white/15 md:left-auto md:right-0 md:top-auto md:z-[10000] md:mt-3 md:w-56 md:rounded-xl md:p-1.5">
       <p class="px-4 pb-2 pt-1 text-xs font-semibold uppercase tracking-wider text-white/50 md:hidden">Advent calendars</p>
       {/* The space above the All Calendars divider is the list's own padding, not a margin,
           so the mouse is always over the list or the footer between rows (see the style) */}

@@ -89,18 +89,35 @@ export interface IconTheme {
   page: string;
   /** The edge around the page */
   frame: string;
-  /** The band across the top */
-  band: string;
+  /** The band across the top: a color, or a left-to-right gradient between two */
+  band: string | [string, string];
   /** The binder rings */
   rings: string;
   /** Doors whose post isn't live yet */
   lockedDoor: string;
 }
 
-// Each year's icon matches that year's site theme. A year without its own theme uses
-// 2025's (2026 does until it gets a reskin).
+// Each year's icon matches that year's site theme (see global.css), and stands out on its
+// dark header. A year without its own theme uses 2025's.
 const iconThemes: Record<number, IconTheme> = {
   2025: { page: '#fff', frame: '#15803d', band: '#15803d', rings: '#dc2626', lockedDoor: '#d1d5db' },
+  // Mulled Stars: the wine, rose to crimson, with icy rings like its snowflakes
+  2026: { page: '#fff', frame: '#e11d48', band: ['#fb7185', '#e11d48'], rings: '#e0f2fe', lockedDoor: '#d1d5db' },
 };
 
 export const getIconTheme = (year: number) => iconThemes[year] ?? iconThemes[2025];
+
+// Years whose doors sit on a red page (2026's Mulled Stars), where a deeper drop shadow
+// keeps the red and rose doors apart from it
+const deepShadowDoorYears = new Set([2026]);
+
+/** The drop shadow under `year`'s calendar doors (written out in full for Tailwind) */
+export const getDoorShadow = (year: number) => (deepShadowDoorYears.has(year) ? 'shadow-[0_12px_24px_-6px_rgb(0_0_0/0.5)]' : 'shadow-lg');
+
+/** A year's card color on the All Calendars page: its theme's page color */
+const cardColors: Record<number, string> = {
+  2025: '#00472c',
+  2026: '#8f1230',
+};
+
+export const getCardColor = (year: number) => cardColors[year] ?? cardColors[2025];

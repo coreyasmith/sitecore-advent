@@ -23,7 +23,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
     in plain CSS media queries), the site's one breakpoint: compact below it, with the title
     on two lines and every other string light, and full from there up, with the title on one
     line, "All Calendars" spelled out on that page's pill, and the RSS bauble. */}
-<header class="site-header relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
+<header class="site-header relative flex items-center justify-between gap-3 p-4 bg-surface/80 shadow-lg md:gap-4 md:p-6">
   <a href={homeHref} class="flex min-w-0 items-center space-x-3 transition transform motion-safe:hover:scale-105 duration-300 md:space-x-4">
     {/* Decorative: the title beside it names the link, so screen readers don't hear it twice */}
     <img src={logo.src} alt="" class="h-10 md:h-12" />
@@ -45,7 +45,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
       aria-label="Subscribe to RSS Feed"
     >
       <div class="w-4 h-1.5 bg-slate-400 rounded-sm"></div>
-      <div class="h-10 w-10 bg-linear-to-br from-red-700 to-red-900 rounded-full flex items-center justify-center -mt-0.5">
+      <div class="rss-bauble h-10 w-10 bg-linear-to-br from-red-700 to-red-900 rounded-full flex items-center justify-center -mt-0.5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

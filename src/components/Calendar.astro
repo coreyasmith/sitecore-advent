@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { SITE_TITLE } from '@/consts';
-import { getDoorColor } from '@/utils/calendar';
+import { getDoorColor, getDoorShadow } from '@/utils/calendar';
 
 interface Props {
   posts: any[];
@@ -13,6 +13,7 @@ const { posts, year } = Astro.props;
 const totalDays = 25;
 const numPosts = posts.length;
 const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
+const doorShadow = getDoorShadow(year);
 ---
 
 {/* The calendar's title is the page's h1. Anything passed in (the welcome post) sits
@@ -26,7 +27,7 @@ const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
       posts.map((post: any, index: number) => {
         const colorClass = getDoorColor(index, year);
         return (
-        <a href={`/${year}/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl motion-safe:hover:scale-105 transition transform duration-300 block`}>
+        <a href={`/${year}/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 ${doorShadow} hover:shadow-2xl motion-safe:hover:scale-105 transition transform duration-300 block`}>
             <div class="flex items-center mb-2">
             <Image src={post.data.authorImage} alt="" width={80} height={80} loading="eager" class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
             <div>
@@ -41,7 +42,7 @@ const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
     }
     {
       Array.from({ length: numLockedBlocks }).map((_, index) => (
-        <div class="bg-gray-400/20 rounded-2xl p-4 shadow-lg opacity-70 flex flex-col items-center justify-center min-h-32">
+        <div class={`bg-gray-400/20 rounded-2xl p-4 ${doorShadow} opacity-70 flex flex-col items-center justify-center min-h-32`}>
         <span class="text-3xl mb-2">🔒</span>
         <h2 class="text-lg font-semibold">Day {numPosts + index + 1}</h2>
         </div>
