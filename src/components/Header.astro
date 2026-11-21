@@ -15,7 +15,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
     <img src={logo.src} alt={SITE_TITLE} class="h-10 md:h-12" />
     {/* Not a heading: each page's own title is its h1. Balanced, so if it ever has to wrap
         anyway, it splits the same way. */}
-    <span class="text-xl font-bold leading-tight text-balance md:text-2xl">
+    <span class="site-title text-xl font-extrabold leading-tight text-balance md:text-2xl">
       {titleTop}<br class="md:hidden" /> {titleBottom}
     </span>
   </a>
@@ -44,4 +44,11 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
   <HeaderStringLights glow={true} />
 </header>
 <style>
+  /* The title is set in Grandstander (see astro.config), centered on its capital letters
+     rather than its line box: the font leaves more room below its letters than above, which
+     would have it riding a couple of pixels high next to the logo. */
+  .site-title {
+    font-family: var(--font-grandstander);
+    text-box: trim-both cap alphabetic;
+  }
 </style>
