@@ -11,7 +11,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
     on two lines and every other string light, and full from there up, with the title on one
     line and the RSS bauble. */}
 <header class="relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
-  <a href="/" class="flex min-w-0 items-center space-x-3 transition transform hover:scale-105 duration-300 md:space-x-4">
+  <a href="/" class="flex min-w-0 items-center space-x-3 transition transform motion-safe:hover:scale-105 duration-300 md:space-x-4">
     {/* Decorative: the title beside it names the link, so screen readers don't hear it twice */}
     <img src={logo.src} alt="" class="h-10 md:h-12" />
     {/* Not a heading: each page's own title is its h1. Balanced, so if it ever has to wrap
@@ -24,7 +24,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
   <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->
   <a 
     href="/rss.xml" 
-    class="hidden md:flex flex-col items-center transition transform hover:scale-105 duration-300"
+    class="hidden md:flex flex-col items-center transition transform motion-safe:hover:scale-105 duration-300"
     title="RSS Feed"
     aria-label="Subscribe to RSS Feed"
   >

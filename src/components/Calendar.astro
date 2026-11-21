@@ -42,7 +42,7 @@ const getColor = (index: number) => {
       posts.map((post: any, index: number) => {
         const colorClass = getColor(index);
         return (
-        <a href={`/2025/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:scale-105 transition transform duration-300 block`}>
+        <a href={`/2025/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl motion-safe:hover:scale-105 transition transform duration-300 block`}>
             <div class="flex items-center mb-2">
             <Image src={post.data.authorImage} alt={post.data.author} width={80} height={80} class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
             <div>

@@ -69,8 +69,6 @@ function createSeededRandom(seed: number) {
     margin-top: 6px;
     display: block;
     transform-origin: center top;
-    animation: sway 3.6s ease-in-out infinite;
-    animation-delay: calc(var(--i) * 1s);
   }
   .lights li:after {
     content: "";
@@ -91,12 +89,20 @@ function createSeededRandom(seed: number) {
     animation-timing-function: ease-in-out;
     animation-delay: calc(var(--delay) * 1s);
   }
-  .glow-enabled .lights li:after {
-    background: color-mix(in srgb, var(--c) 50%, black 50%);
-    box-shadow:
-        0 0 10px rgba(var(--rgb), 0),
-        0 0 28px rgba(var(--rgb), 0);
-    animation-name: glow;
+  /* The lights sway, and on the home page they pulse, unless the visitor asks for
+     reduced motion. Then they hang still, lit. */
+  @media (prefers-reduced-motion: no-preference) {
+    .lights li {
+      animation: sway 3.6s ease-in-out infinite;
+      animation-delay: calc(var(--i) * 1s);
+    }
+    .glow-enabled .lights li:after {
+      background: color-mix(in srgb, var(--c) 50%, black 50%);
+      box-shadow:
+          0 0 10px rgba(var(--rgb), 0),
+          0 0 28px rgba(var(--rgb), 0);
+      animation-name: glow;
+    }
   }
   .lights li:nth-child(odd) {
     animation-duration: 4s;
