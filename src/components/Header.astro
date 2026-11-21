@@ -12,7 +12,8 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
     line and the RSS bauble. */}
 <header class="relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
   <a href="/" class="flex min-w-0 items-center space-x-3 transition transform hover:scale-105 duration-300 md:space-x-4">
-    <img src={logo.src} alt={SITE_TITLE} class="h-10 md:h-12" />
+    {/* Decorative: the title beside it names the link, so screen readers don't hear it twice */}
+    <img src={logo.src} alt="" class="h-10 md:h-12" />
     {/* Not a heading: each page's own title is its h1. Balanced, so if it ever has to wrap
         anyway, it splits the same way. */}
     <span class="site-title text-xl font-extrabold leading-tight text-balance md:text-2xl">
