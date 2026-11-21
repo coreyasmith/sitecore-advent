@@ -111,7 +111,7 @@ The more LLM knows, the less you have to write to prompts or the knowledge datab
 
 ## Blitz questions, with no access to search and tools
 
-|  | *deepseek-v3.1* | gemini-3.0-pro | *grok-code-fast-1* | *claude-4.5-sonnet* | *gpt-5* |
+| Question | *deepseek-v3.1* | gemini-3.0-pro | *grok-code-fast-1* | *claude-4.5-sonnet* | *gpt-5* |
 | --- | --- | --- | --- | --- | --- |
 | What is Sitecore? | 2 | 2 | 2 | 2 | 2 |
 | How many databases are associated with Sitecore, and what are their functions? | 2 | 2 | 2 | 2 | 2 |
