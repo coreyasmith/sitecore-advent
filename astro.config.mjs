@@ -1,11 +1,13 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from "@tailwindcss/vite";
 import plantuml from './syntaxes/plantuml.tmLanguage.json' with { type: 'json' };
 import structurizr from './syntaxes/structurizr.tmLanguage.json' with { type: 'json' };
+import { focusableTables } from './plugins/focusable-tables.mjs';
 import { readableCodeComments } from './plugins/readable-code-comments.mjs';
 
 // https://astro.build/config
@@ -32,6 +34,8 @@ export default defineConfig({
 		},
 	],
 	markdown: {
+		// Astro's default Markdown processor, named here only to add a plugin
+		processor: satteri({ hastPlugins: [focusableTables] }),
 		shikiConfig: {
 			transformers: [readableCodeComments],
 			// Upstream grammars use display names, so set the code block language IDs.
