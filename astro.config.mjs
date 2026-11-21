@@ -6,6 +6,7 @@ import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from "@tailwindcss/vite";
 import plantuml from './syntaxes/plantuml.tmLanguage.json' with { type: 'json' };
 import structurizr from './syntaxes/structurizr.tmLanguage.json' with { type: 'json' };
+import { readableCodeComments } from './plugins/readable-code-comments.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -32,6 +33,7 @@ export default defineConfig({
 	],
 	markdown: {
 		shikiConfig: {
+			transformers: [readableCodeComments],
 			// Upstream grammars use display names, so set the code block language IDs.
 			// Types inferred from the JSON don't match Shiki's grammar types, hence `any`.
 			langs: [
