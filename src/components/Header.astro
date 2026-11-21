@@ -2,13 +2,22 @@
 import { SITE_TITLE } from '@/consts';
 import logo from '@/assets/logo.svg';
 import HeaderStringLights from './HeaderStringLights.astro';
+
+// The title's two lines in the compact header: "Sitecore Community" over "Advent Calendar"
+const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
 ---
-<header class="relative flex items-center justify-between p-6 bg-green-950/80 shadow-lg">
-  <a href="/" class="flex items-center space-x-4 transition transform hover:scale-105 duration-300">
-    <img src={logo.src} alt={SITE_TITLE} class="h-12" />
-    {/* Not a heading: each page's own title is its h1. Balanced, so when it wraps (on
-        phones) it breaks evenly: "Sitecore Community" over "Advent Calendar". */}
-    <span class="text-2xl font-bold text-balance">{SITE_TITLE}</span>
+{/* The header has two sizes and switches once, at Tailwind's `md` breakpoint (768px; 48rem
+    in plain CSS media queries), the site's one breakpoint: compact below it, with the title
+    on two lines and every other string light, and full from there up, with the title on one
+    line and the RSS bauble. */}
+<header class="relative flex items-center justify-between gap-3 p-4 bg-green-950/80 shadow-lg md:gap-4 md:p-6">
+  <a href="/" class="flex min-w-0 items-center space-x-3 transition transform hover:scale-105 duration-300 md:space-x-4">
+    <img src={logo.src} alt={SITE_TITLE} class="h-10 md:h-12" />
+    {/* Not a heading: each page's own title is its h1. Balanced, so if it ever has to wrap
+        anyway, it splits the same way. */}
+    <span class="text-xl font-bold leading-tight text-balance md:text-2xl">
+      {titleTop}<br class="md:hidden" /> {titleBottom}
+    </span>
   </a>
 
   <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->

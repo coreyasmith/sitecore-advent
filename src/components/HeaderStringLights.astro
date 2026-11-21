@@ -127,7 +127,8 @@ function createSeededRandom(seed: number) {
       transform: translateY(2px);
     }
   }
-  @media (max-width: 768px) {
+  /* With the compact header, below `md` (see Header): every other light, a little smaller */
+  @media (width < 48rem) {
     .lights {
       gap: 6px;
       padding: 0 0.5rem;
