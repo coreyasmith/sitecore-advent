@@ -2,6 +2,12 @@
 @plugin "@tailwindcss/typography";
 @config "../../tailwind.config.js";
 
+/* `font-logo`: the site title's font, Grandstander (see astro.config and Header). Only its
+   800 weight is loaded, so pair it with font-extrabold. */
+@theme inline {
+	--font-logo: var(--font-grandstander);
+}
+
 html, body {
 	cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMicgaGVpZ2h0PSczMicgc3R5bGU9J2ZvbnQtc2l6ZToyNHB4Jz48dGV4dCB5PScyNCc+4puEPC90ZXh0Pjwvc3ZnPg==") 16 16, pointer;
 }
