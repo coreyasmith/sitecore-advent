@@ -21,14 +21,19 @@ export class Snowfall {
 
   constructor(private bank: Pick<Snowbank, 'surfaceAt' | 'add'>) {}
 
+  // Keeps the snow that's already falling, spread across the new width, and only adds or drops
+  // flakes to keep the density, so resizing the window doesn't start the snowfall over
   resize(width: number, height: number) {
-    this.width = width;
-    const count = Math.round(Math.min(160, Math.max(40, width / 10)));
-    if (this.flakes.length === count) {
-      for (const flake of this.flakes) flake.x %= width;
-      return;
+    if (this.width) {
+      const stretch = width / this.width;
+      for (const flake of this.flakes) flake.x *= stretch;
     }
-    this.flakes = Array.from({ length: count }, () => this.create(Math.random() * height));
+    this.width = width;
+
+    const count = Math.round(Math.min(160, Math.max(40, width / 10)));
+    const kept = this.flakes.slice(0, count);
+    const added = Array.from({ length: count - kept.length }, () => this.create(Math.random() * height));
+    this.flakes = [...kept, ...added];
   }
 
   update(dt: number, time: number) {

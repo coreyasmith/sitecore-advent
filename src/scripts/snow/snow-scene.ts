@@ -55,7 +55,8 @@ class SnowScene extends HTMLElement {
       keepClear();
       snowfall.resize(width, height);
       fight?.resize(width, height);
-      if (!animate) draw(0);
+      // Resizing the canvas blanks it, so redraw now rather than flash empty until the next frame
+      draw(animate ? performance.now() / 1000 : 0);
     };
 
     const tick = (now: number) => {
