@@ -2,7 +2,7 @@ import { Snowbank } from './snowbank';
 import { Snowfall } from './snowfall';
 import { SnowballFight } from './snowball-fight';
 
-// <snow-scene data-logo="..."><canvas></canvas></snow-scene>
+// <snow-scene><canvas></canvas></snow-scene>
 // A custom element, so the scene starts and stops as the client router swaps pages.
 class SnowScene extends HTMLElement {
   private stop?: () => void;
@@ -12,11 +12,8 @@ class SnowScene extends HTMLElement {
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
 
-    const logo = new Image();
-    logo.src = this.dataset.logo ?? '';
-
     const bank = new Snowbank();
-    const snowfall = new Snowfall(bank, logo);
+    const snowfall = new Snowfall(bank);
     const fight = new SnowballFight(bank);
     const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
