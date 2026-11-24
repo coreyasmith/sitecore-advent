@@ -26,6 +26,17 @@ class SnowScene extends HTMLElement {
     const fight = bank && new SnowballFight(bank);
     const snowfall = new Snowfall(bank ?? { surfaceAt: () => height + 10, add: () => {} });
 
+    // The bank stays below the element data-keep-clear names (Cookie settings, the footer's
+    // lowest line, under its GitHub link). It's measured from the bottom of the page because the
+    // canvas is pinned to the window: that's how far up the window it sits at the end of the page.
+    const clear = this.dataset.keepClear ? document.querySelector(this.dataset.keepClear) : null;
+    const keepClear = () => {
+      if (!clear || !bank) return;
+      const rect = clear.getBoundingClientRect();
+      const above = document.documentElement.scrollHeight - (rect.bottom + window.scrollY);
+      bank.keepBelow(above - 6);
+    };
+
     const draw = (time: number) => {
       ctx.clearRect(0, 0, width, height);
       if (animate) snowfall.draw(ctx, time);
@@ -41,6 +52,7 @@ class SnowScene extends HTMLElement {
       canvas.height = Math.round(height * ratio);
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
       bank?.resize(width, height);
+      keepClear();
       snowfall.resize(width, height);
       fight?.resize(width, height);
       if (!animate) draw(0);

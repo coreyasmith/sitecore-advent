@@ -22,6 +22,6 @@ const { snowbank = false } = Astro.props;
     z-index: 9999;
   }
 </style>
-<snow-scene data-snowbank={snowbank || undefined} aria-hidden="true">
+<snow-scene data-snowbank={snowbank || undefined} data-keep-clear={snowbank ? 'footer button' : undefined} aria-hidden="true">
   <canvas></canvas>
 </snow-scene>

@@ -1,6 +1,8 @@
 // Width of each column in the snowbank's height map, in CSS pixels
 const COLUMN = 4;
 const MIN_DEPTH = 6;
+// How fast snow above a ceiling melts back down to it, in pixels per second
+const MELT_RATE = 12;
 
 interface Sparkle {
   x: number;
@@ -12,6 +14,10 @@ interface Sparkle {
 // The snow along the bottom of the screen. Falling snow adds to it, snowball makers dig into it.
 export class Snowbank {
   private depths = new Float32Array(0);
+  // Each column's ceiling: snow above it melts (Infinity where nothing needs keeping clear)
+  private ceilings = new Float32Array(0);
+  // Where the melted drifts fall, different on each visit
+  private driftPhase = Math.random() * 1000;
   private sparkles: Sparkle[] = [];
   private width = 0;
   private height = 0;
@@ -35,6 +41,7 @@ export class Snowbank {
     }
 
     this.depths = depths;
+    this.ceilings = new Float32Array(count).fill(Infinity);
     this.width = width;
     this.height = height;
     this.maxDepth = Math.max(36, Math.min(80, height * 0.1));
@@ -64,6 +71,21 @@ export class Snowbank {
     this.spread(x, volume, radius, (depth, amount) => depth + amount * Math.max(0, 1 - depth / this.maxDepth));
   }
 
+  // Keeps the whole bank below `depth`, so it never buries what sits just above it (the footer's
+  // GitHub link and Cookie settings). The bank levels off there, and rolling drifts melt down to
+  // as much as 10px lower, so it never settles into a flat line. Call again after every resize.
+  keepBelow(depth: number) {
+    this.maxDepth = Math.max(MIN_DEPTH + 4, Math.min(this.maxDepth, depth));
+    const dip = Math.min(10, this.maxDepth - MIN_DEPTH);
+    for (let i = 0; i < this.depths.length; i++) {
+      const p = i * COLUMN + this.driftPhase;
+      // 0 to 1: long rolling drifts with smaller ones on top
+      const low = 0.5 + Math.sin(p / 140) * 0.3 + Math.sin(p / 53) * 0.2;
+      this.ceilings[i] = this.maxDepth - dip * low;
+      this.depths[i] = Math.min(this.depths[i], this.ceilings[i]);
+    }
+  }
+
   remove(x: number, volume: number, radius: number) {
     this.spread(x, volume, radius, (depth, amount) => Math.max(MIN_DEPTH, depth - amount));
   }
@@ -80,6 +102,12 @@ export class Snowbank {
     }
     depths[0] = depths[1];
     depths[depths.length - 1] = depths[depths.length - 2];
+
+    // Snow that lands or drifts above a ceiling melts back down to it
+    const melt = dt * MELT_RATE;
+    for (let i = 0; i < depths.length; i++) {
+      if (depths[i] > this.ceilings[i]) depths[i] = Math.max(this.ceilings[i], depths[i] - melt);
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D, time: number) {
