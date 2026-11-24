@@ -1,0 +1,27 @@
+---
+// Snow falling over the page. On the 2026 theme it piles up in a snowbank with a snowball fight
+// on top (see src/scripts/snow/snow-scene.ts).
+interface Props {
+  /** Pile the snow up in a snowbank along the bottom of the window, with a snowball fight on top */
+  snowbank?: boolean;
+}
+
+const { snowbank = false } = Astro.props;
+---
+
+<script>
+  import '@/scripts/snow/snow-scene';
+</script>
+<style>
+  canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+</style>
+<snow-scene data-snowbank={snowbank || undefined} aria-hidden="true">
+  <canvas></canvas>
+</snow-scene>

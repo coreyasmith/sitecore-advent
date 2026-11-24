@@ -14,12 +14,12 @@ interface Flake {
 // Snow each landing flake adds to the bank, in square pixels for a 5px flake
 const FLAKE_VOLUME = 90;
 
-// Snowflakes falling onto the snowbank
+// Snowflakes falling onto the snowbank, or anything that stands in for one
 export class Snowfall {
   private flakes: Flake[] = [];
   private width = 0;
 
-  constructor(private bank: Snowbank) {}
+  constructor(private bank: Pick<Snowbank, 'surfaceAt' | 'add'>) {}
 
   resize(width: number, height: number) {
     this.width = width;

@@ -2,8 +2,10 @@ import { Snowbank } from './snowbank';
 import { Snowfall } from './snowfall';
 import { SnowballFight } from './snowball-fight';
 
-// <snow-scene><canvas></canvas></snow-scene>
-// A custom element, so the scene starts and stops as the client router swaps pages.
+// <snow-scene data-snowbank><canvas></canvas></snow-scene>
+// Snow falling over the page. With data-snowbank it piles up in a snowbank along the bottom of the
+// window, with a snowball fight on top; without it, it falls on past the bottom. A custom element,
+// so the scene starts and stops as the client router swaps pages.
 class SnowScene extends HTMLElement {
   private stop?: () => void;
 
@@ -12,9 +14,6 @@ class SnowScene extends HTMLElement {
     const ctx = canvas?.getContext('2d');
     if (!canvas || !ctx) return;
 
-    const bank = new Snowbank();
-    const snowfall = new Snowfall(bank);
-    const fight = new SnowballFight(bank);
     const animate = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let width = 0;
@@ -22,11 +21,16 @@ class SnowScene extends HTMLElement {
     let frame = 0;
     let last = performance.now();
 
+    // Without a snowbank, the snow lands just past the bottom of the window and starts over
+    const bank = this.hasAttribute('data-snowbank') ? new Snowbank() : null;
+    const fight = bank && new SnowballFight(bank);
+    const snowfall = new Snowfall(bank ?? { surfaceAt: () => height + 10, add: () => {} });
+
     const draw = (time: number) => {
       ctx.clearRect(0, 0, width, height);
       if (animate) snowfall.draw(ctx, time);
-      bank.draw(ctx, time);
-      fight.draw(ctx, time);
+      bank?.draw(ctx, time);
+      fight?.draw(ctx, time);
     };
 
     const resize = () => {
@@ -36,9 +40,9 @@ class SnowScene extends HTMLElement {
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      bank.resize(width, height);
+      bank?.resize(width, height);
       snowfall.resize(width, height);
-      fight.resize(width, height);
+      fight?.resize(width, height);
       if (!animate) draw(0);
     };
 
@@ -47,8 +51,8 @@ class SnowScene extends HTMLElement {
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       snowfall.update(dt, now / 1000);
-      fight.update(dt);
-      bank.settle(dt);
+      fight?.update(dt);
+      bank?.settle(dt);
       draw(now / 1000);
       frame = requestAnimationFrame(tick);
     };
