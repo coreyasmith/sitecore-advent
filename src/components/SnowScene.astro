@@ -21,6 +21,10 @@ const { snowbank = false } = Astro.props;
     pointer-events: none;
     z-index: 9999;
   }
+  /* With the snow off there's no snowbank to keep focused items clear of (see Layout) */
+  :global(html[data-snow-off]) {
+    scroll-padding-bottom: 0;
+  }
 </style>
 <snow-scene data-snowbank={snowbank || undefined} data-keep-clear={snowbank ? 'footer button' : undefined} aria-hidden="true">
   <canvas></canvas>

@@ -17,14 +17,16 @@ const theme = year ?? CALENDAR_YEARS[0];
 const snowbank = enableSnowfall && theme === 2026;
 ---
 
-<html lang="en" data-theme={theme}>
+{/* With the snowbank, anything scrolled into view (a card reached with Tab, an anchor link)
+    stops 5rem short of the bottom of the window, clear of the snowbank and the people on it */}
+<html lang="en" data-theme={theme} class:list={{ "scroll-pb-20": snowbank }}>
 <head>
   <BaseHead title={title} description={description} image={image} />
 </head>
 <body class="text-white min-h-screen flex flex-col">
   {enableSnowfall && <SnowScene snowbank={snowbank} />}
   <Header year={year}>
-    {enableSnowfall && <SnowToggle slot="actions" />}
+    {enableSnowfall && <SnowToggle slot="actions" snowbank={snowbank} />}
   </Header>
 
   <main class="grow p-6 max-w-6xl mx-auto w-full">
