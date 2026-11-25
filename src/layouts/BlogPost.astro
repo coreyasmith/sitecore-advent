@@ -4,19 +4,22 @@ import type { CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import FormattedDate from '@/components/FormattedDate.astro';
 
-type Props = CollectionEntry<'advent2025'>['data'];
+type Props = CollectionEntry<'advent2025' | 'advent2026'>['data'] & {
+  /** The calendar year the post belongs to */
+  year: number;
+};
 
-const { title, author, pubDate, description, authorImage, authorUrl, socialImage } = Astro.props;
+const { title, author, pubDate, description, authorImage, authorUrl, socialImage, year } = Astro.props;
 ---
 
-<Layout title={title} description={description} image={socialImage} enableSnowfall={false}>
-  <article class="bg-green-950/90 rounded-2xl p-8 shadow-lg">
+<Layout title={title} description={description} image={socialImage} enableSnowfall={false} year={year}>
+  <article class="bg-surface/90 rounded-2xl p-8 shadow-lg">
     <h1 class="text-3xl font-bold mb-4">{title}</h1>
 
     <div class="flex items-center space-x-4 mb-6 pb-6 border-b border-gray-400 border-opacity-30">
       {authorImage && (
-        <a href={authorUrl} target="_blank" class="hover:shadow-2xl hover:scale-105 transition">
-          <Image src={authorImage} alt={author} width={128} height={128} class="w-16 h-16 rounded-full object-cover border-2 border-white border-opacity-50" />
+        <a href={authorUrl} target="_blank" tabindex="-1" aria-hidden="true" class="hover:shadow-2xl motion-safe:hover:scale-105 transition">
+          <Image src={authorImage} alt="" width={128} height={128} loading="eager" class="w-16 h-16 rounded-full object-cover border-2 border-white border-opacity-50" />
         </a>
       )}
       <div>

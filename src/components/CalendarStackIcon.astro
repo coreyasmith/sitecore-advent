@@ -1,0 +1,18 @@
+---
+// The All Calendars icon: two overlapping calendars, the oldest year behind and the
+// newest in front. The year menu uses it on the All Calendars row and, on that page, on
+// its pill.
+import CalendarIcon from './CalendarIcon.astro';
+import { CALENDAR_YEARS } from '@/utils/calendar';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={['relative', className]} aria-hidden="true">
+  <CalendarIcon year={CALENDAR_YEARS[CALENDAR_YEARS.length - 1]} open={25} class="absolute left-0 top-0 h-[78%] w-[78%] opacity-70 drop-shadow" />
+  <CalendarIcon year={CALENDAR_YEARS[0]} open={25} class="absolute bottom-0 right-0 h-[78%] w-[78%] drop-shadow" />
+</span>

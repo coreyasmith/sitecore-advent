@@ -18,7 +18,7 @@ This post we will
 2. Create an Azure Service Bus to connect our code
 3. Create Python code that asynchronously extracts Markdown from the asset
 
-### Why Markdown, why not just plain text?
+## Why Markdown, why not just plain text?
 
 LLMs ♥️ Markdown. This has numerous reasons:
 
@@ -27,7 +27,7 @@ LLMs ♥️ Markdown. This has numerous reasons:
 - Markdown uses minimal characters (not like HTML or JSON)
 - LLMs are typically trained on vast amounts of Markdown-formatted documents
 
-### Why not use the "Extracted Content" rendition
+## Why not use the "Extracted Content" rendition
 
 Content Hub already does a pretty good job extracting text from PDFs. This text is available in the `Extracted Content` rendition on PDF assets. In Pre-AI times, this was enough for keyword-based search etc. but for all the reasons mentioned above, Markdown is the better suited format for GenAI use cases.
 

@@ -1,0 +1,38 @@
+---
+// Every year's calendar on one page. Each card has its title on top and that year's
+// authors below, laid out like its calendar (see CalendarFaces). Each card is in its own
+// year's theme color, so the years stand apart on whichever theme the page wears. The year
+// menu links here.
+import Layout from '@/layouts/Layout.astro';
+import CalendarFaces from '@/components/CalendarFaces.astro';
+import { CALENDAR_YEARS, calendarHref, getCalendarPosts, getCardColor, postCountLabel } from '@/utils/calendar';
+
+const years = await Promise.all(
+  CALENDAR_YEARS.map(async (year) => {
+    const posts = await getCalendarPosts(year);
+    // The faces speak for themselves; only a year that hasn't started gets a note.
+    const note = posts.length === 0 ? postCountLabel(0) : undefined;
+    return { year, posts, href: calendarHref(year), note };
+  }),
+);
+---
+
+<Layout title="All Calendars" description="Every Sitecore Community Advent Calendar, year by year.">
+  <h1 class="font-logo mb-4 text-xl font-extrabold">All Calendars</h1>
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    {years.map(({ year, posts, href, note }) => (
+      <a
+        href={href}
+        style={`background-color: ${getCardColor(year)}`}
+        class="block rounded-2xl p-5 shadow-[0_24px_48px_-12px_rgb(0_0_0/0.7)] transition duration-300 motion-safe:hover:scale-[1.02] md:p-6"
+      >
+        {/* Same size and weight as the title on each calendar page */}
+        <div class="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h2 class="font-logo text-xl font-extrabold">{year} Advent Calendar</h2>
+          {note && <span class="text-sm text-white/80">{note}</span>}
+        </div>
+        <CalendarFaces year={year} posts={posts} />
+      </a>
+    ))}
+  </div>
+</Layout>

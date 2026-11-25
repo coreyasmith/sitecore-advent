@@ -3,9 +3,11 @@
 // all pages through the use of the <BaseHead /> component.
 import '@/styles/global.css';
 import type { ImageMetadata } from 'astro';
+import { Font } from 'astro:assets';
 import { ClientRouter } from "astro:transitions";
 import social from '@/assets/social.png'
 import { SITE_TITLE, SITE_DESCRIPTION } from '@/consts';
+import { CALENDAR_YEARS } from '@/utils/calendar';
 
 interface Props {
 	title?: string;
@@ -13,7 +15,10 @@ interface Props {
 	image?: ImageMetadata;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// The newest year's calendar is the home page and is also at /<year>/. That copy names the
+// home page as the one for search engines to list.
+const path = Astro.url.pathname === `/${CALENDAR_YEARS[0]}/` ? '/' : Astro.url.pathname;
+const canonicalURL = new URL(path, Astro.site);
 
 const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = social } = Astro.props;
 
@@ -26,6 +31,8 @@ const pageTitle = title === SITE_TITLE ? SITE_TITLE : `${title} | ${SITE_TITLE}`
 <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
 <link rel="icon" href="/favicon-192x192.png" sizes="192x192" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+<!-- The site title's font, preloaded since the title is at the top of every page -->
+<Font cssVariable="--font-grandstander" preload />
 <link
 	rel="alternate"
 	type="application/rss+xml"

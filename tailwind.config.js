@@ -18,6 +18,11 @@ module.exports = {
             '--tw-prose-invert-th-borders': 'rgba(255, 255, 255, 0.5)',
             '--tw-prose-invert-td-borders': 'rgba(255, 255, 255, 0.4)',
 
+            // Anything too long for the line (bare URLs, inline code paths and
+            // namespaces, query strings) breaks where needed instead of running off
+            // the page on phones. Code blocks don't wrap; they still scroll sideways.
+            overflowWrap: 'break-word',
+
             // Reduce spacing between elements
             'p': {
               marginTop: '0.75em',
@@ -83,6 +88,16 @@ module.exports = {
             'hr': {
               marginTop: '2em',
               marginBottom: '2em',
+            },
+            // Inline code (not code blocks) sits on a tinted pill so it stands out from
+            // the text. When it wraps, each line gets its own rounded ends.
+            ':not(pre) > code': {
+              backgroundColor: 'rgb(255 255 255 / 0.12)',
+              borderRadius: '0.375rem',
+              padding: '0.15em 0.4em',
+              fontWeight: '500',
+              boxDecorationBreak: 'clone',
+              WebkitBoxDecorationBreak: 'clone',
             },
             'code::before': {
               content: '""',

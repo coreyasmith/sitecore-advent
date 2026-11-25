@@ -1,5 +1,7 @@
 ---
 import { Image } from 'astro:assets';
+import { SITE_TITLE } from '@/consts';
+import { getDoorColor, getDoorShadow } from '@/utils/calendar';
 
 interface Props {
   posts: any[];
@@ -11,36 +13,23 @@ const { posts, year } = Astro.props;
 const totalDays = 25;
 const numPosts = posts.length;
 const numLockedBlocks = Math.max(0, Math.min(totalDays, totalDays - numPosts));
-
-const colors = [
-  'from-fuchsia-500 to-fuchsia-700',
-  'from-rose-500 to-rose-700',
-  'from-green-500 to-green-700',
-  'from-blue-500 to-blue-700',
-  'from-yellow-500 to-yellow-700',
-  'from-purple-500 to-purple-700',
-  'from-teal-500 to-teal-700',
-  'from-orange-500 to-orange-700'
-];
-
-// Deterministic color grid: offset each row by 2 to avoid horizontal and vertical conflicts
-const getColor = (index: number) => {
-  const row = Math.floor(index / 5);
-  const col = index % 5;
-  return colors[(col + row * 2) % colors.length];
-};
+const doorShadow = getDoorShadow(year);
 ---
 
+{/* The calendar's title is the page's h1. Anything passed in (the welcome post) sits
+    between it and the doors. The doors' photos all load right away: a big screen shows
+    every door at once, and all 25 photos come to about 30 KB. */}
 <div class="mb-12">
-  <h3 class="text-xl font-bold mb-4">{year} Advent Calendar</h3>
+  <h1 class="font-logo text-xl font-extrabold mb-4 text-balance">{year} {SITE_TITLE}</h1>
+  <slot />
   <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
     {
       posts.map((post: any, index: number) => {
-        const colorClass = getColor(index);
+        const colorClass = getDoorColor(index, year);
         return (
-        <a href={`/2025/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:scale-105 transition transform duration-300 block`}>
+        <a href={`/${year}/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 ${doorShadow} hover:shadow-2xl motion-safe:hover:scale-105 transition transform duration-300 block`}>
             <div class="flex items-center mb-2">
-            <Image src={post.data.authorImage} alt={post.data.author} width={80} height={80} class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
+            <Image src={post.data.authorImage} alt="" width={80} height={80} loading="eager" class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
             <div>
                 <h2 class="text-lg font-semibold leading-tight text-white card-text-shadow">Day {index+1}</h2>
                 <p class="text-xs text-white/90 card-text-shadow">{post.data.author}</p>
@@ -53,7 +42,7 @@ const getColor = (index: number) => {
     }
     {
       Array.from({ length: numLockedBlocks }).map((_, index) => (
-        <div class="bg-gray-400/20 rounded-2xl p-4 shadow-lg opacity-70 flex flex-col items-center justify-center min-h-32">
+        <div class={`bg-gray-400/20 rounded-2xl p-4 ${doorShadow} opacity-70 flex flex-col items-center justify-center min-h-32`}>
         <span class="text-3xl mb-2">🔒</span>
         <h2 class="text-lg font-semibold">Day {numPosts + index + 1}</h2>
         </div>

@@ -54,7 +54,8 @@ With the above technical business requirements defined, the following decisions 
 - OAUTH2 application to application authorisation tokens from Microsoft EntraID is used by default.
 - Sitecore GraphQL API communication is protected by a simple API Key instead. All the information from Sitecore is already publicly available information that anyone already has access to via both web sites
 
-![Mobile App Back end High Level Infrastructure](./mobile-app-environments-security-for-documentation.png)
+<!-- markdownlint-disable-next-line MD045 -->
+![](./mobile-app-environments-security-for-documentation.png)
 <p style="text-align:center">Mobile App Back end High Level Infrastructure. Mainly Sitecore focused.</p>
 
 From the diagram above, the communication between the mobile app back end and both Sitecore Content Management and Content Delivery are all via internal network communication, using Private Endpoints and Private DNS. The public access to all the GraphQL API Endpoints in Sitecore Content Delivery are blocked off by CloudFlare. There is a strong preference in the organisation to keep application communications within the private network. However, the incoming Webhook in the mobile app back end, still requires a dedicated application authorisation OAUTH2 token from Microsoft EntraID.
@@ -68,7 +69,8 @@ To satisfy all the business, an Event Driven approach is required to be run insi
 Sitecore has always had an event driven approach (e.g. item:saved, item:added, item:deleted, item:versionAdded, item:versionRemoved) when changes occur to Sitecore items. In 10.3, sending these event details to [External systems' Webhooks](https://doc.sitecore.com/xp/en/developers/latest/sitecore-experience-manager/webhooks.html) was introduced. This allows for a no-code / low-code approach directly from Sitecore to send these events, with enough details to an external system.
 One major missing piece is that there is no way to distinguish between the `master` database and the `web` database. Luckily, community member Mark Lowe has documented [a simple way to resolve this via the Rules Engine](https://sitecoreblog.marklowe.ch/2024/03/making-item-based-webhook-events-work-on-sitecore-10-3/).
 
-![Mobile App Back end High Level Sitecore Related Workloads](./mobile-app-sitecore-related-workloads.png)
+<!-- markdownlint-disable-next-line MD045 -->
+![](./mobile-app-sitecore-related-workloads.png)
 <p style="text-align:center">Mobile App Back end High Level Sitecore Related Workloads</p>
 
 #### Web Site Service

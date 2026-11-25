@@ -242,7 +242,7 @@ Some things you need to know about this code:
   https://localhost:3000/api/pagespeed?url=www.yoursite.com
   searchParams.get('url') will result in: www.yoursite.com in the const url.
 - you can use console.log(API\_KEY) to verify that the key is getting fetched
-- you need to specify what data you want to receive from PSI. That is why these querystring parameters are being passed: category=performance&category=accessibility&category=best-practices&category=seo\`
+- you need to specify what data you want to receive from PSI. That is why these querystring parameters are being passed: `category=performance&category=accessibility&category=best-practices&category=seo`
 
 ```typescript
 // src/app/api/pagespeed/route.ts
