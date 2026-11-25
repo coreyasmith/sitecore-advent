@@ -24,17 +24,20 @@ class SnowScene extends HTMLElement {
     let reduce = motion.matches;
 
     let width = 0;
+    // The window's height, where the snowbank sits, and the canvas's, which hangs below it to
+    // reach behind iOS Safari's floating toolbar (see SnowScene)
     let height = 0;
+    let canvasHeight = 0;
     let frame = 0;
     let last = 0;
     // The scene's own clock, in seconds. It stops while the snow is off, so nothing jumps when
     // it comes back on.
     let clock = 0;
 
-    // Without a snowbank, the snow lands just past the bottom of the window and starts over
+    // Without a snowbank, the snow lands just past the bottom of the canvas and starts over
     const bank = this.hasAttribute('data-snowbank') ? new Snowbank() : null;
     const fight = bank && new SnowballFight(bank);
-    const snowfall = new Snowfall(bank ?? { surfaceAt: () => height + 10, add: () => {} });
+    const snowfall = new Snowfall(bank ?? { surfaceAt: () => canvasHeight + 10, add: () => {} });
     const isOff = () => isSnowOff() || forced.matches || (!bank && motion.matches);
 
     // The bank stays below the element data-keep-clear names (Cookie settings, the footer's
@@ -49,18 +52,19 @@ class SnowScene extends HTMLElement {
     };
 
     const draw = (time: number) => {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, canvasHeight);
       if (!reduce) snowfall.draw(ctx, time);
-      bank?.draw(ctx, time);
+      bank?.draw(ctx, time, canvasHeight);
       fight?.draw(ctx, time);
     };
 
     const resize = () => {
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.clientWidth;
-      height = canvas.clientHeight;
+      height = this.clientHeight;
+      canvasHeight = canvas.clientHeight;
       canvas.width = Math.round(width * ratio);
-      canvas.height = Math.round(height * ratio);
+      canvas.height = Math.round(canvasHeight * ratio);
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
       bank?.resize(width, height);
       keepClear();

@@ -13,13 +13,35 @@ const { snowbank = false } = Astro.props;
   import '@/scripts/snow/snow-scene';
 </script>
 <style>
-  canvas {
+  /* The scene is the size of the window. iOS 26 Safari ends fixed boxes above its floating
+     toolbar, though the page shows through behind it, so the canvas hangs 160px below the scene
+     and the snowbank fills that strip with snow (see snow-scene.ts). Fixed boxes don't scroll,
+     so the overhang never adds to the page. */
+  snow-scene {
+    display: block;
     position: fixed;
     inset: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
     z-index: 9999;
+  }
+  snow-scene[hidden] {
+    display: none;
+  }
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 160px);
+  }
+  /* A strip of snow along the bottom edge, under the bank, for Safari to carry its color on
+     behind the toolbar where it won't draw the canvas */
+  snow-scene[data-snowbank]::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 4px;
+    background: #cfe0f0;
   }
   /* With the snow off there's no snowbank to keep focused items clear of (see Layout) */
   :global(html[data-snow-off]) {

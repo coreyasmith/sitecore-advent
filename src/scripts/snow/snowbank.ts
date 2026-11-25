@@ -110,15 +110,18 @@ export class Snowbank {
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D, time: number) {
+  // `floor` is the bottom of the canvas, which can reach below the window (behind iOS Safari's
+  // floating toolbar): the bank is solid snow down to it
+  draw(ctx: CanvasRenderingContext2D, time: number, floor = this.height) {
     const { width, height, depths } = this;
 
     ctx.beginPath();
-    ctx.moveTo(0, height);
+    ctx.moveTo(0, floor);
     for (let i = 0; i < depths.length; i++) {
       ctx.lineTo(i * COLUMN, height - depths[i]);
     }
     ctx.lineTo(width + COLUMN, height);
+    ctx.lineTo(width + COLUMN, floor);
     ctx.closePath();
 
     const gradient = ctx.createLinearGradient(0, height - this.maxDepth, 0, height);
