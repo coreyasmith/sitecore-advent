@@ -21,6 +21,18 @@ const { snowbank = false } = Astro.props;
     pointer-events: none;
     z-index: 9999;
   }
+  /* A strip of snow along the bottom edge, hidden under the bank. iOS 26 Safari won't draw fixed
+     boxes behind its floating toolbar, but it fills the area behind it with the background of a
+     fixed box along the bottom edge. The canvas is transparent, so without this the page shows
+     through under the bank. Safari ignored a 4px strip; 8px is enough. */
+  .ground {
+    position: fixed;
+    inset: auto 0 0;
+    height: 8px;
+    background: #cfe0f0;
+    pointer-events: none;
+    z-index: 9998;
+  }
   /* With the snow off there's no snowbank to keep focused items clear of (see Layout) */
   :global(html[data-snow-off]) {
     scroll-padding-bottom: 0;
@@ -34,4 +46,5 @@ const { snowbank = false } = Astro.props;
 </style>
 <snow-scene data-snowbank={snowbank || undefined} data-keep-clear={snowbank ? 'footer button' : undefined} aria-hidden="true">
   <canvas></canvas>
+  {snowbank && <div class="ground"></div>}
 </snow-scene>
