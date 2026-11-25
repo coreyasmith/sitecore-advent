@@ -1,12 +1,20 @@
 ---
-// The switch that turns the snow (see SnowFall) off and on, joined to the right of the year menu's
+// The switch that turns the snow (see SnowScene) off and on, joined to the right of the year menu's
 // pill as its other half. While it snows, snow falls from a cloud; once it's off, the cloud
-// stays and the snow fades away. Off hides the snow entirely (WCAG 2.2.2), and the choice is
+// stays and the snow fades away. Off hides the scene entirely (WCAG 2.2.2), and the choice is
 // saved across pages and visits (see src/scripts/snow/setting.ts). To assistive tech it's a
 // switch named "Snow", checked while it's snowing. While the visitor's system asks for reduced
-// motion, or uses a forced-colors (high contrast) theme, there's no snow, so the toggle is hidden
-// too. Header renders it between the year menu and the RSS bauble; the negative margin cancels
-// the header's gap so it meets the pill.
+// motion a snowbank's scene stands still, and so does the toggle's snow; it still turns the
+// scene off. Snow without a snowbank is hidden then, and so is the toggle. It's hidden with the
+// scene under a forced-colors (high contrast) theme too. Header renders it between the year menu
+// and the RSS bauble; the negative margin cancels the header's gap so it meets the pill.
+
+interface Props {
+  /** The snow piles up in a snowbank (see SnowScene) */
+  snowbank?: boolean;
+}
+
+const { snowbank = false } = Astro.props;
 
 const cloud = 'M7 14.5a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17.2 7.1a3.75 3.75 0 0 1 .05 7.4z';
 const flakes = [
@@ -27,7 +35,7 @@ const icon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${cloud}" tra
   import '@/scripts/snow/snow-toggle';
 </script>
 
-<snow-toggle class="-ml-6 flex">
+<snow-toggle class="-ml-6 flex" data-snowbank={snowbank || undefined}>
   <button
     type="button"
     role="switch"
@@ -67,15 +75,22 @@ const icon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${cloud}" tra
     animation: none;
   }
 
-  /* Reduced motion and forced colors hide the snow (see SnowFall), and the toggle with it */
-  @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  /* Reduced motion: the snow stays under the cloud, still */
+  @media (prefers-reduced-motion: reduce) {
+    .snow-toggle-flake {
+      animation: none;
+    }
+  }
+
+  /* Forced colors hide the scene, and the toggle with it (see snow-scene.ts) */
+  @media (forced-colors: active) {
     snow-toggle {
       display: none;
     }
   }
   /* Otherwise the year menu's pill squares off its right end to meet the toggle, and the
      site title makes room for it (see --header-extra in Header) */
-  @media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  @media (forced-colors: none) {
     .site-header:has(snow-toggle) {
       --header-extra: 2.75rem;
     }
@@ -93,6 +108,24 @@ const icon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${cloud}" tra
       .site-header:has(snow-toggle) .year-menu > summary > svg:last-child {
         display: none;
       }
+    }
+  }
+  /* Snow without a snowbank is only falling snow, so reduced motion hides it (see
+     snow-scene.ts). With no snow to turn off, the toggle goes too, and the header is as it
+     is without one: the pill whole with its chevron, and the title's usual sizes. */
+  @media (prefers-reduced-motion: reduce) {
+    snow-toggle:not([data-snowbank]) {
+      display: none;
+    }
+    .site-header:has(snow-toggle:not([data-snowbank])) {
+      --header-extra: 0rem;
+      --title-min: 1rem;
+    }
+    .site-header:has(snow-toggle:not([data-snowbank])) .year-menu > summary {
+      border-radius: calc(infinity * 1px);
+    }
+    .site-header:has(snow-toggle:not([data-snowbank])) .year-menu > summary > svg:last-child {
+      display: revert;
     }
   }
 </style>
