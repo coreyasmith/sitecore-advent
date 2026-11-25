@@ -1,9 +1,31 @@
+---
+// Snow falling over the page, purely for decoration. The snow toggle in the header (see
+// SnowToggle) turns it off, and it's hidden while the visitor's system asks for reduced motion
+// or uses a forced-colors (high contrast) theme.
+---
+
 <script>
   import '@zachleat/snow-fall';
+  import { isSnowOff, onSnowOffChange } from '@/scripts/snow/setting';
+
+  // data-snow-off on <html> hides the snow. The client router gives <html> the new page's
+  // attributes, so it's set again after every swap, before the new page shows.
+  const apply = () => document.documentElement.toggleAttribute('data-snow-off', isSnowOff());
+  apply();
+  onSnowOffChange(apply);
+  document.addEventListener('astro:after-swap', apply);
 </script>
 <style>
   snow-fall {
     z-index: 9999;
+  }
+  :global(html[data-snow-off]) snow-fall {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    snow-fall {
+      display: none;
+    }
   }
 </style>
 <snow-fall style="--snow-fall-color: white; --snow-fall-size: 15px"></snow-fall>

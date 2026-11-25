@@ -1,6 +1,7 @@
 ---
 import BaseHead from "@/components/BaseHead.astro";
 import SnowFall from "@/components/SnowFall.astro";
+import SnowToggle from "@/components/SnowToggle.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Analytics from "@/components/Analytics.astro";
@@ -19,7 +20,9 @@ const theme = year ?? CALENDAR_YEARS[0];
 </head>
 <body class="text-white min-h-screen flex flex-col">
   {enableSnowfall && <SnowFall />}
-  <Header year={year} />
+  <Header year={year}>
+    {enableSnowfall && <SnowToggle slot="actions" />}
+  </Header>
 
   <main class="grow p-6 max-w-6xl mx-auto w-full">
     <slot />

@@ -36,6 +36,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
 
   <div class="flex shrink-0 items-center gap-6">
     <YearMenu year={year} />
+    <slot name="actions" />
 
     <!-- Insipired by https://codepen.io/moralejf/pen/nrZMYm -->
     <a
@@ -89,12 +90,14 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
   }
   /* Below `md` the title shrinks with the screen, so "Sitecore Community" still fits on its
      first line beside the year menu. The room for it is the screen less --header-rest (the
-     padding, logo, gaps and year pill, plus a little to spare), and the phrase is about
-     9.8 times as wide as the font size. Below about 370px it wraps onto a third line. */
+     padding, logo, gaps and year pill, plus a little to spare) and --header-extra (anything
+     in the actions slot, such as the snow toggle), and the phrase is about 9.8 times as wide
+     as the font size. It stops at --title-min, 1rem unless the actions slot lowers it (see
+     SnowToggle); below about 370px it then wraps onto a third line. */
   @media (width < 48rem) {
     .site-title {
       --header-rest: 13.75rem;
-      font-size: clamp(1rem, (100vw - var(--header-rest)) / 9.8, 1.25rem);
+      font-size: clamp(var(--title-min, 1rem), (100vw - var(--header-rest) - var(--header-extra, 0rem)) / 9.8, 1.25rem);
     }
   }
   /* From `md` up the whole title is on one line, and it does the same: just past `md` it's
@@ -105,7 +108,7 @@ const [titleTop, titleBottom] = SITE_TITLE.split(/ (?=Advent)/);
   @media (width >= 48rem) {
     .site-title {
       --header-rest: 24.75rem;
-      font-size: min((100vw - var(--header-rest)) / 18.3, 1.5rem);
+      font-size: min((100vw - var(--header-rest) - var(--header-extra, 0rem)) / 18.3, 1.5rem);
     }
   }
   @media (width < 48rem) {

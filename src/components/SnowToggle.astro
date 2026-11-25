@@ -1,0 +1,98 @@
+---
+// The switch that turns the snow (see SnowFall) off and on, joined to the right of the year menu's
+// pill as its other half. While it snows, snow falls from a cloud; once it's off, the cloud
+// stays and the snow fades away. Off hides the snow entirely (WCAG 2.2.2), and the choice is
+// saved across pages and visits (see src/scripts/snow/setting.ts). To assistive tech it's a
+// switch named "Snow", checked while it's snowing. While the visitor's system asks for reduced
+// motion, or uses a forced-colors (high contrast) theme, there's no snow, so the toggle is hidden
+// too. Header renders it between the year menu and the RSS bauble; the negative margin cancels
+// the header's gap so it meets the pill.
+
+const cloud = 'M7 14.5a4 4 0 0 1-.6-7.95A5.5 5.5 0 0 1 17.2 7.1a3.75 3.75 0 0 1 .05 7.4z';
+const flakes = [
+  [8, 17.5, 0],
+  [12, 16.5, 0.5],
+  [16, 17.5, 1],
+  [10, 19.5, 1.25],
+  [14, 19.5, 0.25],
+]
+  .map(([x, y, delay]) => `<circle class="snow-toggle-flake" cx="${x}" cy="${y}" r="1.1" style="animation-delay:-${delay}s"/>`)
+  .join('');
+// The cloud sits centered in the icon and the snow falls below it, past the icon's box into
+// the button's padding, so the cloud doesn't move when the snow goes
+const icon = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${cloud}" transform="translate(0 3.5)" fill="currentColor" fill-opacity=".2" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><g class="snow-toggle-flakes" fill="currentColor" transform="translate(0 2.5)">${flakes}</g></svg>`;
+---
+
+<script>
+  import '@/scripts/snow/snow-toggle';
+</script>
+
+<snow-toggle class="-ml-6 flex">
+  <button
+    type="button"
+    role="switch"
+    aria-checked="true"
+    aria-label="Snow"
+    title="Snow on/off"
+    class="flex items-center rounded-r-full border border-l-0 border-white/20 bg-white/10 py-2.5 pl-1.5 pr-2.5 transition hover:bg-white/20 md:py-2 md:pl-2 md:pr-3"
+  >
+    <span class="h-6 w-6" set:html={icon} />
+  </button>
+</snow-toggle>
+
+<style is:global>
+  snow-toggle svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  /* Snow falls a few pixels from the cloud and fades, on a loop */
+  @keyframes snow-toggle-flake {
+    0% { transform: translateY(-2.5px); opacity: 0; }
+    20%, 75% { opacity: 1; }
+    100% { transform: translateY(4.5px); opacity: 0; }
+  }
+  .snow-toggle-flake {
+    animation: snow-toggle-flake 1.5s linear infinite;
+  }
+  /* Off: the snow fades out and stops */
+  .snow-toggle-flakes {
+    transition: opacity 300ms;
+  }
+  snow-toggle[data-off] .snow-toggle-flakes {
+    opacity: 0;
+  }
+  snow-toggle[data-off] .snow-toggle-flake {
+    animation: none;
+  }
+
+  /* Reduced motion and forced colors hide the snow (see SnowFall), and the toggle with it */
+  @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    snow-toggle {
+      display: none;
+    }
+  }
+  /* Otherwise the year menu's pill squares off its right end to meet the toggle, and the
+     site title makes room for it (see --header-extra in Header) */
+  @media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+    .site-header:has(snow-toggle) {
+      --header-extra: 2.75rem;
+    }
+    .site-header:has(snow-toggle) .year-menu > summary {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    /* Phones: so the title still fits on two lines beside them, the pill drops its chevron
+       (the whole pill still opens the menu), the toggle's padding tightens, and the title
+       may go down to 14px */
+    @media (width < 48rem) {
+      .site-header:has(snow-toggle) {
+        --title-min: 0.875rem;
+      }
+      .site-header:has(snow-toggle) .year-menu > summary > svg:last-child {
+        display: none;
+      }
+    }
+  }
+</style>
