@@ -1,4 +1,6 @@
 {
   // Lines aren't hard-wrapped in this repo
-  "MD013": false
+  "MD013": false,
+  // A captioned image is a <figure> with a <figcaption>; Markdown has no caption syntax
+  "MD033": { "allowed_elements": ["figure", "figcaption"] }
 }

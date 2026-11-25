@@ -26,9 +26,13 @@ But then tools like Sitecore Connect came along, allowing you to build complex l
 
 Back in the 80s, in Brazil, owning a personal computer was an expensive dream. Encouraged by my sister Adriana, our father sold his car so I could have my first computer: an 8-bit [**MSX Expert**](https://en.wikipedia.org/wiki/Gradiente_Expert). That decision shaped my entire life! I still remember the excitement of typing code line by line from computer magazines. Hours spent debugging, searching for the one missing character that could make everything work. That was magic to me. That was _software development_!
 
-<!-- markdownlint-disable-next-line MD045 -->
-![](./picture1.jpg)
-_From left to right, my friends Gustavo Wiggers, Rogério Monteiro and myself, presenting in a science fair with my MSX computer. And our project was about home automation! How many dreams can fit into the minds of young kids?_
+<figure>
+
+  <!-- markdownlint-disable-next-line MD045 -->
+  ![](./picture1.jpg)
+
+  <figcaption>From left to right, my friends Gustavo Wiggers, Rogério Monteiro and myself, presenting in a science fair with my MSX computer. And our project was about home automation! How many dreams can fit into the minds of young kids?</figcaption>
+</figure>
 
 When robots started replacing manual work in factories, my father, an automotive mechanics teacher, feared the loss of control and purpose. "The loss of art". But what really happened was transformation. The essence of creation didn’t vanish; it moved to a new layer of abstraction.
 

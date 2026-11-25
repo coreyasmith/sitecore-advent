@@ -17,6 +17,9 @@ module.exports = {
             // Make table borders appropriate for dark mode
             '--tw-prose-invert-th-borders': 'rgba(255, 255, 255, 0.5)',
             '--tw-prose-invert-td-borders': 'rgba(255, 255, 255, 0.4)',
+            // Image captions: a softer white than the text, instead of a cool gray that
+            // fights the page's color
+            '--tw-prose-invert-captions': 'rgba(255, 255, 255, 0.8)',
 
             // Anything too long for the line (bare URLs, inline code paths and
             // namespaces, query strings) breaks where needed instead of running off
@@ -119,6 +122,24 @@ module.exports = {
               display: 'block',
               marginLeft: 'auto',
               marginRight: 'auto',
+            },
+            // A captioned image: <figure>, the image, <figcaption>. Markdown puts the image
+            // in a paragraph, so it keeps an image's usual margins; drop them so the caption
+            // sits right under it.
+            'figure img': {
+              marginTop: '0',
+              marginBottom: '0',
+            },
+            // The figure is as wide as its image and centered like images are. Its caption
+            // wraps to that width (it adds none of its own), so it lines up with the image.
+            'figure': {
+              width: 'fit-content',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            },
+            'figcaption': {
+              marginTop: '0.25em',
+              contain: 'inline-size',
             },
             // Make tables scrollable like code blocks
             'table': {
