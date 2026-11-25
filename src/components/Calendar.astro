@@ -33,7 +33,8 @@ const getColor = (index: number) => {
 ---
 
 {/* The calendar's title is the page's h1. Anything passed in (the welcome post) sits
-    between it and the doors. */}
+    between it and the doors. The doors' photos all load right away: a big screen shows
+    every door at once, and all 25 photos come to about 30 KB. */}
 <div class="mb-12">
   <h1 class="font-logo text-xl font-extrabold mb-4 text-balance">{year} {SITE_TITLE}</h1>
   <slot />
@@ -44,7 +45,7 @@ const getColor = (index: number) => {
         return (
         <a href={`/2025/${post.id}/`} class={`bg-linear-to-br ${colorClass} rounded-2xl p-4 shadow-lg hover:shadow-2xl motion-safe:hover:scale-105 transition transform duration-300 block`}>
             <div class="flex items-center mb-2">
-            <Image src={post.data.authorImage} alt="" width={80} height={80} class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
+            <Image src={post.data.authorImage} alt="" width={80} height={80} loading="eager" class="w-10 h-10 rounded-full mr-3 border-2 border-white border-opacity-50" />
             <div>
                 <h2 class="text-lg font-semibold leading-tight text-white card-text-shadow">Day {index+1}</h2>
                 <p class="text-xs text-white/90 card-text-shadow">{post.data.author}</p>

@@ -8,6 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 import plantuml from './syntaxes/plantuml.tmLanguage.json' with { type: 'json' };
 import structurizr from './syntaxes/structurizr.tmLanguage.json' with { type: 'json' };
 import { focusableTables } from './plugins/focusable-tables.mjs';
+import { heroImagePriority } from './plugins/hero-image-priority.mjs';
 import { readableCodeComments } from './plugins/readable-code-comments.mjs';
 
 // https://astro.build/config
@@ -34,8 +35,8 @@ export default defineConfig({
 		},
 	],
 	markdown: {
-		// Astro's default Markdown processor, named here only to add a plugin
-		processor: satteri({ hastPlugins: [focusableTables] }),
+		// Astro's default Markdown processor, named here only to add plugins
+		processor: satteri({ hastPlugins: [focusableTables, heroImagePriority] }),
 		shikiConfig: {
 			transformers: [readableCodeComments],
 			// Upstream grammars use display names, so set the code block language IDs.
