@@ -25,6 +25,12 @@ const { snowbank = false } = Astro.props;
   :global(html[data-snow-off]) {
     scroll-padding-bottom: 0;
   }
+  /* Not on paper: pinned to the window, the scene would print over the bottom of every page */
+  @media print {
+    snow-scene {
+      display: none;
+    }
+  }
 </style>
 <snow-scene data-snowbank={snowbank || undefined} data-keep-clear={snowbank ? 'footer button' : undefined} aria-hidden="true">
   <canvas></canvas>

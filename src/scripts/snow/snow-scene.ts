@@ -71,8 +71,9 @@ class SnowScene extends HTMLElement {
     };
 
     const tick = (now: number) => {
-      // Cap the step so a backgrounded tab doesn't come back to a blizzard
-      const dt = Math.min((now - last) / 1000, 0.05);
+      // Cap the step so a backgrounded tab doesn't come back to a blizzard. The first frame's time
+      // can be a touch earlier than `last`, so never step backwards either.
+      const dt = Math.max(0, Math.min((now - last) / 1000, 0.05));
       last = now;
       clock += dt;
       snowfall.update(dt, clock);
@@ -108,8 +109,8 @@ class SnowScene extends HTMLElement {
     motion.addEventListener('change', update);
     forced.addEventListener('change', update);
     const unlisten = onSnowOffChange(update);
-    update();
-
+    // Ready to stop before the first update, so even if drawing fails, leaving the page still
+    // removes these listeners
     this.stop = () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('resize', onResize);
@@ -117,6 +118,7 @@ class SnowScene extends HTMLElement {
       forced.removeEventListener('change', update);
       unlisten();
     };
+    update();
   }
 
   disconnectedCallback() {
@@ -125,4 +127,4 @@ class SnowScene extends HTMLElement {
   }
 }
 
-customElements.define('snow-scene', SnowScene);
+if (!customElements.get('snow-scene')) customElements.define('snow-scene', SnowScene);
